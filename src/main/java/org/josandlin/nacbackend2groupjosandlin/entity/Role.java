@@ -1,16 +1,15 @@
 package org.josandlin.nacbackend2groupjosandlin.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name="roles")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
+
     String name;
 
     public Role() {

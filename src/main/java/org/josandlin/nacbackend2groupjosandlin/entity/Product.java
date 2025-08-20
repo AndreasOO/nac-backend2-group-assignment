@@ -7,11 +7,17 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    public int id;
+    public Long id;
+
     public String title;
     public double price;
+
+    @Column(length = 1000)
     public String description;
+
     public String category;
+
+    @Column(length = 1000)
     public String image;
 
     @AttributeOverrides({
@@ -32,11 +38,11 @@ public class Product {
         this.rating = rating;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

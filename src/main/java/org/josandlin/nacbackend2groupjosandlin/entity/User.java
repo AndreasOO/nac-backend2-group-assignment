@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="users")
 public class User {
 
     @Id
@@ -22,7 +23,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    List<Role> roles;
+    List<Role> roles = new ArrayList<>();
 
     public User() {
 
