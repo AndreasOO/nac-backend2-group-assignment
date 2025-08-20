@@ -6,17 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    Long id;
 
     @ManyToOne
     @JoinColumn
     User user;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "order_products",
             joinColumns = @JoinColumn(name = "order_id"),
