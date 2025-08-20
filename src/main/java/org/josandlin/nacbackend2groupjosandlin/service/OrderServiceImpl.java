@@ -1,12 +1,8 @@
-package service;
+package org.josandlin.nacbackend2groupjosandlin.service;
 
-import dao.OrderDao;
-import jakarta.transaction.Transactional;
-import org.josandlin.nacbackend2groupjosandlin.entity.Order;
+import org.josandlin.nacbackend2groupjosandlin.dao.OrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl {

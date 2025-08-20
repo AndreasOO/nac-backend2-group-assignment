@@ -1,4 +1,4 @@
-package service;
+package org.josandlin.nacbackend2groupjosandlin.service;
 
 import jakarta.transaction.Transactional;
 import org.josandlin.nacbackend2groupjosandlin.entity.Order;
