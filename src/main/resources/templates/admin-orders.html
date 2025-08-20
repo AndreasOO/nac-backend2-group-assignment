@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Order Handler</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<h1>Order Management - Admin Panel</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Customer</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.customerName}"></td>
+        <td>
+            <form th:action="@{'/admin/orders/' + ${order.id} + '/status'}" method="post">
+            </form>
+        </td>
+        <td th:text="${order.total}"></td>
+        <td>
+            <form th:action="@{'/admin/orders/' + ${order.id} + '/delete'}" method="post"
+                  onsubmit="return confirm('Are you sure you want to delete this order?');">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
