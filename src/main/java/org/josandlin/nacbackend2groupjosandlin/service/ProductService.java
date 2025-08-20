@@ -1,4 +1,4 @@
-package service;
+package org.josandlin.nacbackend2groupjosandlin.service;
 
 import org.josandlin.nacbackend2groupjosandlin.entity.Product;
 

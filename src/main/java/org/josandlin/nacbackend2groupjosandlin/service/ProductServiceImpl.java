@@ -1,10 +1,8 @@
-package service;
+package org.josandlin.nacbackend2groupjosandlin.service;
 
-import dao.ProductDao;
+import org.josandlin.nacbackend2groupjosandlin.dao.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService{
