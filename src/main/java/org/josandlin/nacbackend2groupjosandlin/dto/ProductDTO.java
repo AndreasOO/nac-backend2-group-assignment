@@ -1,44 +1,26 @@
-package org.josandlin.nacbackend2groupjosandlin.entity;
+package org.josandlin.nacbackend2groupjosandlin.dto;
 
-import jakarta.persistence.*;
+public class ProductDTO {
 
-@Entity
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long id;
 
     public String title;
+
     public double price;
 
-    @Column(length = 1000)
     public String description;
 
     public String category;
 
-    @Column(length = 1000)
     public String image;
 
-    @AttributeOverrides({
-            @AttributeOverride(name = "count", column = @Column(name = "rating_count"))
-    })
-    public Rating rating;
+    public RatingDTO rating;
 
-    public Product() {
+    public ProductDTO() {
 
     }
 
-    public Product(String title, double price, String description, String category, String image, Rating rating) {
-        this.title = title;
-        this.price = price;
-        this.description = description;
-        this.category = category;
-        this.image = image;
-        this.rating = rating;
-    }
-
-    public Product(Long id, String title, double price, String description, String category, String image, Rating rating) {
+    public ProductDTO(Long id, String title, double price, String description, String category, String image, RatingDTO rating) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -96,11 +78,11 @@ public class Product {
         this.image = image;
     }
 
-    public Rating getRating() {
+    public RatingDTO getRating() {
         return rating;
     }
 
-    public void setRating(Rating rating) {
+    public void setRating(RatingDTO rating) {
         this.rating = rating;
     }
 }

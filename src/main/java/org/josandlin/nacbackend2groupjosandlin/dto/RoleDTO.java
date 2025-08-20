@@ -1,26 +1,16 @@
-package org.josandlin.nacbackend2groupjosandlin.entity;
+package org.josandlin.nacbackend2groupjosandlin.dto;
 
-import jakarta.persistence.*;
+public class RoleDTO {
 
-@Entity
-@Table(name="roles")
-public class Role {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
     String name;
 
-    public Role() {
+    public RoleDTO() {
 
     }
 
-    public Role(String name) {
-        this.name = name;
-    }
-
-    public Role(Long id, String name) {
+    public RoleDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }
