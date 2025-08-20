@@ -41,4 +41,5 @@ public class UserMapper {
         return new User(dto.getId(), dto.getUsername(), dto.getPassword(),
                 dto.getRoles().stream().map(roleMapper::toRoleEntity).toList());
     }
+
 }
