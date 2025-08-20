@@ -10,7 +10,8 @@ public class RoleDTO {
 
     }
 
-    public RoleDTO(String name) {
+    public RoleDTO(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

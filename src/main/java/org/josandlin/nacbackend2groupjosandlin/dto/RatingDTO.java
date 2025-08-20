@@ -1,6 +1,7 @@
 package org.josandlin.nacbackend2groupjosandlin.dto;
 
 public class RatingDTO {
+
     public double rate;
     public int count;
 

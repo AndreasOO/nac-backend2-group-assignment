@@ -15,7 +15,8 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    public UserDTO(String username, String password, List<RoleDTO> roles) {
+    public UserDTO(Long id, String username, String password, List<RoleDTO> roles) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.roles = roles;

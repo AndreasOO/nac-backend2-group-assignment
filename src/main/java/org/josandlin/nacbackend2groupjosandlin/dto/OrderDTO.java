@@ -7,11 +7,17 @@ public class OrderDTO {
 
     Long id;
 
-    UserDTO user;
+    UserSummaryDTO user;
 
-    List<ProductDTO> products = new ArrayList<>();
+    List<ProductSummaryDTO> products = new ArrayList<>();
 
     public OrderDTO(){}
+
+    public OrderDTO(Long id, UserSummaryDTO user, List<ProductSummaryDTO> products) {
+        this.id = id;
+        this.user = user;
+        this.products = products;
+    }
 
     public Long getId() {
         return id;
@@ -21,19 +27,19 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public List<ProductDTO> getProducts() {
+    public List<ProductSummaryDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductDTO> products) {
+    public void setProducts(List<ProductSummaryDTO> products) {
         this.products = products;
     }
 
-    public UserDTO getUser() {
+    public UserSummaryDTO getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(UserSummaryDTO user) {
         this.user = user;
     }
 }

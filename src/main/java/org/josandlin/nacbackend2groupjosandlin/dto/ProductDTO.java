@@ -5,6 +5,7 @@ public class ProductDTO {
     public Long id;
 
     public String title;
+
     public double price;
 
     public String description;
@@ -19,7 +20,8 @@ public class ProductDTO {
 
     }
 
-    public ProductDTO(String title, double price, String description, String category, String image, RatingDTO rating) {
+    public ProductDTO(Long id, String title, double price, String description, String category, String image, RatingDTO rating) {
+        this.id = id;
         this.title = title;
         this.price = price;
         this.description = description;
