@@ -28,4 +28,9 @@ public class ProductServiceImpl implements ProductService{
                 .map(productMapper::toProductDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ProductDTO getProductById(Long id) {
+        return productDao.findById(id).map(productMapper::toProductDto).orElse(null);
+    }
 }

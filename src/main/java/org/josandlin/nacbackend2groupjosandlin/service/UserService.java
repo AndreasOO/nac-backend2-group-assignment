@@ -1,9 +1,17 @@
 package org.josandlin.nacbackend2groupjosandlin.service;
 
-public interface UserService {
-/*
-    List<UsersDTO> getAllUsers();
+import org.josandlin.nacbackend2groupjosandlin.dto.UserDTO;
 
+import java.util.List;
+
+public interface UserService {
+
+    List<UserDTO> getAllUsers();
+
+    UserDTO getUserById(Long id);
+
+
+    /*
     @Transactional
     UserDTO createUser(UserDTO userDTO);
 
