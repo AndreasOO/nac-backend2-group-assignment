@@ -33,9 +33,14 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductDTO getProductById(Long id) {
-        Product product = productDao.findById(id).isPresent() ? productDao.findById(id).get() : null;
-        return productMapper.toProductDto(product);
+        return productDao.findById(id).map(productMapper::toProductDto).orElse(null);
     }
+
+//    @Override
+//    public ProductDTO getProductById(Long id) {
+//        Product product = productDao.findById(id).isPresent() ? productDao.findById(id).get() : null;
+//        return productMapper.toProductDto(product);
+//    }
 
     @Override
     public boolean saveAll(List<ProductDTO> productDTO){
