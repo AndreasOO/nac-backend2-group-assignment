@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Show All Products</title>
     <meta charset="UTF-8">
@@ -17,7 +17,29 @@
     </style>
 </head>
 <body>
-<h2>ALL PRODUCTS</h2>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fs-4">
+    <a class="navbar-brand" href="#">FAKE STORE</a>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('Admin')">Orders</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            <a class="btn btn-secondary text-white" th:href="@{/loginView}">Login</a>
+        </span>
+    </div>
+</nav>
 
 <table>
     <thead>
@@ -49,5 +71,6 @@
         </tr>
     </tbody>
 </table>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

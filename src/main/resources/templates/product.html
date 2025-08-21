@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fs-4">
+    <a class="navbar-brand" href="#">FAKE STORE</a>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('Admin')">Orders</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            <a class="btn btn-secondary text-white" th:href="@{/loginView}">Login</a>
+        </span>
+    </div>
+</nav>
+
 <div class="container d-flex justify-content-center" style="margin-top: 8%;">
     <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
         <form th:action="@{/products/{id}/buy(id=${product.id})}" method="post">
