@@ -35,6 +35,15 @@ public class Order {
         this.products = products;
     }
 
+    public Order(User user, List<Product> products){
+        this.user = user;
+        this.products = products;
+    }
+
+    public Order(User user){
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
