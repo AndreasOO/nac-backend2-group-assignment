@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long id;
 
     public String title;
