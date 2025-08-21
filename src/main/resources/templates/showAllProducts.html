@@ -41,7 +41,7 @@
             <td th:text="${product.category}"></td>
             <td th:text="${product.price}"></td>
             <td>
-                <a th:href="@{/products/details/{id}(id=${product.id})}"
+                <a th:href="@{/products/{id}(id=${product.id})}"
                    class="btn btn-primary btn-sm">
                     Show product
                 </a>
