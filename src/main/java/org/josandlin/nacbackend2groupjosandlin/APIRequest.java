@@ -41,12 +41,7 @@ public class APIRequest implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        List<ProductDTO> allProducts = mapper.readValue(
-                new URL("https://fakestoreapi.com/products"),
-                new TypeReference<List<ProductDTO>>() {}
-        );
+        List<ProductDTO> allProducts = FakeStoreProductFetcher.fetchProducts();
         productService.saveAll(allProducts);
     }
 }
