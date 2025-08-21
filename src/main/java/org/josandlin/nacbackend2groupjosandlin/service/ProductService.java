@@ -1,5 +1,6 @@
 package org.josandlin.nacbackend2groupjosandlin.service;
 
+import jakarta.transaction.Transactional;
 import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
 import org.josandlin.nacbackend2groupjosandlin.entity.Product;
 
@@ -15,4 +16,6 @@ public interface ProductService {
 
     ProductDTO getProductById(Long id);
 
+    @Transactional
+    boolean saveAll(List<ProductDTO> products);
 }
