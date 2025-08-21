@@ -8,6 +8,7 @@ import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
 import java.net.URL;
 import java.util.List;
 
+
 public class FakeStoreProductFetcher {
     public static List<ProductDTO> fetchProducts() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
