@@ -1,8 +1,7 @@
-package org.josandlin.nacbackend2groupjosandlin;
+package org.josandlin.webapp;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
+import org.josandlin.nacbackend2groupjosandlin.FakeStoreProductFetcher;
 import org.josandlin.nacbackend2groupjosandlin.dao.OrderDao;
 import org.josandlin.nacbackend2groupjosandlin.dao.ProductDao;
 import org.josandlin.nacbackend2groupjosandlin.dao.RoleDao;
@@ -10,7 +9,10 @@ import org.josandlin.nacbackend2groupjosandlin.dao.UserDao;
 import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
 import org.josandlin.nacbackend2groupjosandlin.dto.RatingDTO;
 import org.josandlin.nacbackend2groupjosandlin.service.ProductService;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -18,15 +20,10 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
-import static io.restassured.RestAssured.baseURI;
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class IntegrationTests {
