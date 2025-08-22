@@ -6,48 +6,53 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fs-4">
-    <a class="navbar-brand" href="#">FAKE STORE</a>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Products</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('Admin')">Orders</a>
-            </li>
-        </ul>
-        <span class="navbar-text">
-            <a class="btn btn-secondary text-white" th:href="@{/loginView}">Login</a>
-        </span>
-    </div>
-</nav>
+<div class="container mt-4">
 
-<div class="container d-flex justify-content-center" style="margin-top: 8%;">
-    <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
-        <h2 class="pb-3 text-dark">Login</h2>
-        <p th:if="${error}" class="text-danger text-center" th:text="${error}"></p>
-        <form th:action="@{/login}" method="post" th:object="${user}">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter name">
-            </div>
-            <div class="form-group">
-                <label for="examplePassword">Password:</label>
-                <input type="password" class="form-control" id="examplePassword" placeholder="Password">
-            </div>
-            <div class="d-flex flex-column align-items-center pt-3">
-                <button type="submit" class="btn btn-dark w-100">Login</button>
-            </div>
-        </form>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fs-4">
+        <a class="navbar-brand" href="#">FAKE STORE</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('Admin')">Orders</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+            <a class="btn btn-dark text-white" th:href="@{/loginView}">Login</a>
+        </span>
+        </div>
+    </nav>
+
+    <div class="container d-flex justify-content-center" style="margin-top: 8%;">
+        <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
+            <h2 class="pb-3 text-dark">Login</h2>
+            <p th:if="${error}" class="text-danger text-center" th:text="${error}"></p>
+            <form th:action="@{/login}" method="post" th:object="${user}">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label for="examplePassword">Password:</label>
+                    <input type="password" class="form-control" id="examplePassword" placeholder="Password">
+                </div>
+                <div class="d-flex flex-column align-items-center pt-3">
+                    <button type="submit" class="btn btn-dark w-100">Login</button>
+                </div>
+            </form>
+        </div>
     </div>
+
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
