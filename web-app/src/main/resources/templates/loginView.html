@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>LoginView</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
@@ -7,18 +8,17 @@
 </head>
 <body>
 
-<div class="container mt-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fs-4">
+    <div class="container mt-4 border-bottom border-secondary">
 
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fs-4">
-        <a class="navbar-brand" href="#">FAKE STORE</a>
+        <a class="navbar-brand" th:href="@{/products}">FAKE STORE</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" th:href="@{/products}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Products</a>
+                    <a class="nav-link" th:href="@{/products}">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
@@ -28,10 +28,13 @@
                 </li>
             </ul>
             <span class="navbar-text">
-            <a class="btn btn-dark text-white" th:href="@{/loginView}">Login</a>
-        </span>
+                    <a class="btn btn-dark text-white px-5" th:href="@{/loginView}">Login</a>
+                </span>
         </div>
-    </nav>
+    </div>
+</nav>
+
+<div class="container mt-4">
 
     <div class="container d-flex justify-content-center" style="margin-top: 8%;">
         <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
