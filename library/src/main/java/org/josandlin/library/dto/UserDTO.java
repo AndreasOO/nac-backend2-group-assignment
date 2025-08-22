@@ -1,4 +1,4 @@
-package org.josandlin.webapp.dto;
+package org.josandlin.library.dto;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.josandlin.webapp.entity;
+package org.josandlin.library.entity;
 
 
 import jakarta.persistence.*;

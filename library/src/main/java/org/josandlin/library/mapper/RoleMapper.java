@@ -1,7 +1,8 @@
-package org.josandlin.webapp.mapper;
+package org.josandlin.library.mapper;
 
-import org.josandlin.webapp.dto.RoleDTO;
-import org.josandlin.webapp.entity.Role;
+
+import org.josandlin.library.dto.RoleDTO;
+import org.josandlin.library.entity.Role;
 import org.springframework.stereotype.Component;
 
 @Component

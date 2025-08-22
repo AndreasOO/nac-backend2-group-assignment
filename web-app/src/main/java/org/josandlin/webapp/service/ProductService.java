@@ -1,8 +1,8 @@
 package org.josandlin.webapp.service;
 
 import jakarta.transaction.Transactional;
-import org.josandlin.webapp.dto.ProductDTO;
-import org.josandlin.webapp.entity.Product;
+import org.josandlin.library.dto.ProductDTO;
+import org.josandlin.library.entity.Product;
 
 import java.util.List;
 

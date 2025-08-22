@@ -1,10 +1,9 @@
 package org.josandlin.webapp.service;
 
-import jakarta.transaction.Transactional;
 import org.josandlin.webapp.dao.ProductDao;
-import org.josandlin.webapp.dto.ProductDTO;
-import org.josandlin.webapp.entity.Product;
-import org.josandlin.webapp.mapper.ProductMapper;
+import org.josandlin.library.dto.ProductDTO;
+import org.josandlin.library.entity.Product;
+import org.josandlin.library.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

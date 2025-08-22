@@ -3,7 +3,7 @@ package org.josandlin.webapp;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.josandlin.webapp.dto.ProductDTO;
+import org.josandlin.library.dto.ProductDTO;
 
 import java.net.URL;
 import java.util.List;

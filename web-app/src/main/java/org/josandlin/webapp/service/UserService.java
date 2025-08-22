@@ -1,6 +1,6 @@
 package org.josandlin.webapp.service;
 
-import org.josandlin.webapp.dto.UserDTO;
+import org.josandlin.library.dto.UserDTO;
 
 import java.util.List;
 

@@ -9,8 +9,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>library</module>
         <module>product-fetcher</module>
         <module>web-app</module>
+
     </modules>
 
 

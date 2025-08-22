@@ -1,4 +1,4 @@
-package org.josandlin.webapp.dto;
+package org.josandlin.library.dto;
 
 public class ProductDTO {
 

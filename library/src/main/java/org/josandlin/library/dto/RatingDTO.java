@@ -1,18 +1,14 @@
-package org.josandlin.webapp.entity;
+package org.josandlin.library.dto;
 
-import jakarta.persistence.Embeddable;
-
-@Embeddable
-public class Rating {
+public class RatingDTO {
 
     public double rate;
     public int count;
 
-    public Rating() {
-
+    public RatingDTO() {
     }
 
-    public Rating(double rate, int count) {
+    public RatingDTO(double rate, int count) {
         this.rate = rate;
         this.count = count;
     }

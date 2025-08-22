@@ -1,26 +1,19 @@
 package org.josandlin.webapp;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.josandlin.webapp.dao.OrderDao;
 import org.josandlin.webapp.dao.ProductDao;
 import org.josandlin.webapp.dao.RoleDao;
 import org.josandlin.webapp.dao.UserDao;
-import org.josandlin.webapp.dto.ProductDTO;
-import org.josandlin.webapp.entity.Order;
-import org.josandlin.webapp.entity.Product;
-import org.josandlin.webapp.entity.Role;
-import org.josandlin.webapp.entity.User;
-import org.josandlin.webapp.mapper.ProductMapper;
+import org.josandlin.library.dto.ProductDTO;
+import org.josandlin.library.entity.Order;
+import org.josandlin.library.entity.Product;
+import org.josandlin.library.entity.Role;
+import org.josandlin.library.entity.User;
+import org.josandlin.library.mapper.ProductMapper;
 import org.josandlin.webapp.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.net.URL;
-import java.util.List;
 
 @Component
 @org.springframework.core.annotation.Order(2)

@@ -1,8 +1,9 @@
-package org.josandlin.webapp.mapper;
+package org.josandlin.library.mapper;
 
-import org.josandlin.webapp.dto.UserDTO;
-import org.josandlin.webapp.dto.UserSummaryDTO;
-import org.josandlin.webapp.entity.User;
+
+import org.josandlin.library.dto.UserDTO;
+import org.josandlin.library.dto.UserSummaryDTO;
+import org.josandlin.library.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

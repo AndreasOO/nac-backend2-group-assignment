@@ -1,21 +1,12 @@
 package org.josandlin.webapp;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.josandlin.webapp.dao.ProductDao;
-import org.josandlin.webapp.dto.ProductDTO;
-import org.josandlin.webapp.entity.Product;
+import org.josandlin.library.dto.ProductDTO;
+import org.josandlin.library.entity.Product;
 import org.josandlin.webapp.service.ProductService;
-import org.josandlin.webapp.service.ProductServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
 import java.util.List;
 
 @Component
@@ -41,7 +32,9 @@ public class APIRequest implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("STARTING COMMAND LINE RUNNER");
         List<ProductDTO> allProducts = FakeStoreProductFetcher.fetchProducts();
         productService.saveAll(allProducts);
+        System.out.println("STOPPING COMMAND LINE RUNNER");
     }
 }

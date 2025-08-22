@@ -1,10 +1,12 @@
-package org.josandlin.webapp.mapper;
+package org.josandlin.library.mapper;
 
-import org.josandlin.webapp.dto.OrderCreateDTO;
-import org.josandlin.webapp.dto.OrderDTO;
-import org.josandlin.webapp.entity.Order;
-import org.josandlin.webapp.entity.Product;
-import org.josandlin.webapp.entity.User;
+
+
+import org.josandlin.library.dto.OrderCreateDTO;
+import org.josandlin.library.dto.OrderDTO;
+import org.josandlin.library.entity.Order;
+import org.josandlin.library.entity.Product;
+import org.josandlin.library.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

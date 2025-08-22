@@ -3,13 +3,12 @@ package org.josandlin.webapp;
 import io.restassured.RestAssured;
 
 
-import org.josandlin.webapp.FakeStoreProductFetcher;
 import org.josandlin.webapp.dao.OrderDao;
 import org.josandlin.webapp.dao.ProductDao;
 import org.josandlin.webapp.dao.RoleDao;
 import org.josandlin.webapp.dao.UserDao;
-import org.josandlin.webapp.dto.ProductDTO;
-import org.josandlin.webapp.dto.RatingDTO;
+import org.josandlin.library.dto.ProductDTO;
+import org.josandlin.library.dto.RatingDTO;
 import org.josandlin.webapp.service.ProductService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
