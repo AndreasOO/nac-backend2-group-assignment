@@ -6,23 +6,52 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div class="container d-flex justify-content-center" style="margin-top: 8%;">
-    <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
-        <form th:action="@{/products/{id}/buy(id=${product.id})}" method="post">
-            <h2 class="pb-3 text-dark" th:text="${product.title}"></h2>
-            <img th:src="@{${product.image}}" class="img-fluid" alt="Product image">
-            <p class="text-muted" th:text="${product.category}"></p>
-            <p th:text="${product.description}"></p>
-            <p class="font-weight-bold" th:text="'$' + ${product.price}"></p>
+
+<div class="container mt-4">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fs-4">
+        <a class="navbar-brand" href="#">FAKE STORE</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('Admin')">Orders</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+            <a class="btn btn-dark text-white" th:href="@{/loginView}">Login</a>
+        </span>
+        </div>
+    </nav>
+
+    <div class="container d-flex justify-content-center" style="margin-top: 8%;">
+        <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
+            <form th:action="@{/products/{id}/buy(id=${product.id})}" method="post">
+                <h2 class="pb-3 text-dark" th:text="${product.title}"></h2>
+                <img th:src="@{${product.image}}" class="img-fluid" alt="Product image">
+                <p class="text-muted" th:text="${product.category}"></p>
+                <p th:text="${product.description}"></p>
+                <p class="font-weight-bold" th:text="'$' + ${product.price}"></p>
+                <div class="d-flex flex-column align-items-center pt-3">
+                    <button type="submit" class="btn btn-dark w-100">Buy</button>
+                </div>
+            </form>
             <div class="d-flex flex-column align-items-center pt-3">
-                <button type="submit" class="btn btn-dark w-100">Buy</button>
+                <a class="btn btn-dark w-100" th:href="@{/products}">Return to products</a>
             </div>
-        </form>
-        <div class="d-flex flex-column align-items-center pt-3">
-            <a class="btn btn-dark w-100" th:href="@{/products}">Return to products</a>
         </div>
     </div>
+
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>

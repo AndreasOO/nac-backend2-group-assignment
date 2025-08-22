@@ -3,36 +3,65 @@
 <head>
     <title>Admin Order Handler</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Order Management - Admin Panel</h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>Order ID</th>
-        <th>Customer</th>
-        <th>Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="order : ${orders}">
-        <td th:text="${order.id}"></td>
-        <td th:text="${order.customerName}"></td>
-        <td>
-            <form th:action="@{'/admin/orders/' + ${order.id} + '/status'}" method="post">
-            </form>
-        </td>
-        <td th:text="${order.total}"></td>
-        <td>
-            <form th:action="@{'/admin/orders/' + ${order.id} + '/delete'}" method="post"
-                  onsubmit="return confirm('Are you sure you want to delete this order?');">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="container mt-4">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fs-4">
+        <a class="navbar-brand" href="#">FAKE STORE</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('Admin')">Orders</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+            <a class="btn btn-dark text-white" th:href="@{/loginView}">Login</a>
+        </span>
+        </div>
+    </nav>
+
+    <h1>Order Management - Admin Panel</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.customerName}"></td>
+            <td>
+                <form th:action="@{'/admin/orders/' + ${order.id} + '/status'}" method="post">
+                </form>
+            </td>
+            <td th:text="${order.total}"></td>
+            <td>
+                <form th:action="@{'/admin/orders/' + ${order.id} + '/delete'}" method="post"
+                      onsubmit="return confirm('Are you sure you want to delete this order?');">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
 </body>
 </html>
