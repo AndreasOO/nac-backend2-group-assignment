@@ -1,4 +1,4 @@
-package org.josandlin.nacbackend2groupjosandlin.service;
+package org.josandlin.webapp.service;
 
 public class RoleServiceImpl {
 }

@@ -1,13 +1,13 @@
-package org.josandlin.nacbackend2groupjosandlin;
+package org.josandlin.webapp;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.josandlin.nacbackend2groupjosandlin.dao.ProductDao;
-import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.Product;
-import org.josandlin.nacbackend2groupjosandlin.service.ProductService;
-import org.josandlin.nacbackend2groupjosandlin.service.ProductServiceImpl;
+import org.josandlin.webapp.dao.ProductDao;
+import org.josandlin.webapp.dto.ProductDTO;
+import org.josandlin.webapp.entity.Product;
+import org.josandlin.webapp.service.ProductService;
+import org.josandlin.webapp.service.ProductServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

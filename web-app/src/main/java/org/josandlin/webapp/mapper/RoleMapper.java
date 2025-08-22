@@ -1,7 +1,7 @@
-package org.josandlin.nacbackend2groupjosandlin.mapper;
+package org.josandlin.webapp.mapper;
 
-import org.josandlin.nacbackend2groupjosandlin.dto.RoleDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.Role;
+import org.josandlin.webapp.dto.RoleDTO;
+import org.josandlin.webapp.entity.Role;
 import org.springframework.stereotype.Component;
 
 @Component

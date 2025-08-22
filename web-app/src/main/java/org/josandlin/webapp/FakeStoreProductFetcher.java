@@ -1,9 +1,9 @@
-package org.josandlin.nacbackend2groupjosandlin;
+package org.josandlin.webapp;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
+import org.josandlin.webapp.dto.ProductDTO;
 
 import java.net.URL;
 import java.util.List;
@@ -15,7 +15,8 @@ public class FakeStoreProductFetcher {
         mapper.registerModule(new JavaTimeModule());
         List<ProductDTO> allProducts = mapper.readValue(
                 new URL("https://fakestoreapi.com/products"),
-                new TypeReference<List<ProductDTO>>() {}
+                new TypeReference<List<ProductDTO>>() {
+                }
         );
         return allProducts;
     }

@@ -1,10 +1,10 @@
-package org.josandlin.nacbackend2groupjosandlin.service;
+package org.josandlin.webapp.service;
 
 import jakarta.transaction.Transactional;
-import org.josandlin.nacbackend2groupjosandlin.dao.ProductDao;
-import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.Product;
-import org.josandlin.nacbackend2groupjosandlin.mapper.ProductMapper;
+import org.josandlin.webapp.dao.ProductDao;
+import org.josandlin.webapp.dto.ProductDTO;
+import org.josandlin.webapp.entity.Product;
+import org.josandlin.webapp.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductDao productDao;
     private final ProductMapper productMapper;
 
     @Autowired
-    public ProductServiceImpl(ProductDao productDao,  ProductMapper productMapper) {
+    public ProductServiceImpl(ProductDao productDao, ProductMapper productMapper) {
         this.productDao = productDao;
         this.productMapper = productMapper;
     }
@@ -43,12 +43,11 @@ public class ProductServiceImpl implements ProductService{
 //    }
 
     @Override
-    public boolean saveAll(List<ProductDTO> productDTO){
-        try{
+    public boolean saveAll(List<ProductDTO> productDTO) {
+        try {
             productDTO.stream().map(productMapper::toProductEntity).forEach(productDao::save);
             return true;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return false;
         }
     }

@@ -9,6 +9,7 @@
             border-collapse: collapse;
             width: auto;
         }
+
         th, td {
             text-align: left;
             padding: 5px;
@@ -21,32 +22,32 @@
 
 <table>
     <thead>
-        <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Show</th>
-        </tr>
+    <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Show</th>
+    </tr>
     </thead>
     <tbody>
-        <tr th:each="product : ${products}">
-            <td>
-                <img th:src="${product.image}"
-                alt="Product image"
-                class="img-fluid"
-                style="width: 80px; height: 80px; object-fit: cover;">
-            </td>
-            <td th:text="${product.title}"></td>
-            <td th:text="${product.category}"></td>
-            <td th:text="${product.price}"></td>
-            <td>
-                <a th:href="@{/products/{id}(id=${product.id})}"
-                   class="btn btn-primary btn-sm">
-                    Show product
-                </a>
-            </td>
-        </tr>
+    <tr th:each="product : ${products}">
+        <td>
+            <img th:src="${product.image}"
+                 alt="Product image"
+                 class="img-fluid"
+                 style="width: 80px; height: 80px; object-fit: cover;">
+        </td>
+        <td th:text="${product.title}"></td>
+        <td th:text="${product.category}"></td>
+        <td th:text="${product.price}"></td>
+        <td>
+            <a th:href="@{/products/{id}(id=${product.id})}"
+               class="btn btn-primary btn-sm">
+                Show product
+            </a>
+        </td>
+    </tr>
     </tbody>
 </table>
 </body>

@@ -1,4 +1,4 @@
-package org.josandlin.nacbackend2groupjosandlin.entity;
+package org.josandlin.webapp.entity;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -25,7 +25,7 @@ public class Order {
     )
     List<Product> products = new ArrayList<>();
 
-    public Order(){
+    public Order() {
 
     }
 
@@ -35,12 +35,12 @@ public class Order {
         this.products = products;
     }
 
-    public Order(User user, List<Product> products){
+    public Order(User user, List<Product> products) {
         this.user = user;
         this.products = products;
     }
 
-    public Order(User user){
+    public Order(User user) {
         this.user = user;
     }
 

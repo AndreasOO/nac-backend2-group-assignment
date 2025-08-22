@@ -1,19 +1,19 @@
-package org.josandlin.nacbackend2groupjosandlin;
+package org.josandlin.webapp;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.josandlin.nacbackend2groupjosandlin.dao.OrderDao;
-import org.josandlin.nacbackend2groupjosandlin.dao.ProductDao;
-import org.josandlin.nacbackend2groupjosandlin.dao.RoleDao;
-import org.josandlin.nacbackend2groupjosandlin.dao.UserDao;
-import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.Order;
-import org.josandlin.nacbackend2groupjosandlin.entity.Product;
-import org.josandlin.nacbackend2groupjosandlin.entity.Role;
-import org.josandlin.nacbackend2groupjosandlin.entity.User;
-import org.josandlin.nacbackend2groupjosandlin.mapper.ProductMapper;
-import org.josandlin.nacbackend2groupjosandlin.service.ProductService;
+import org.josandlin.webapp.dao.OrderDao;
+import org.josandlin.webapp.dao.ProductDao;
+import org.josandlin.webapp.dao.RoleDao;
+import org.josandlin.webapp.dao.UserDao;
+import org.josandlin.webapp.dto.ProductDTO;
+import org.josandlin.webapp.entity.Order;
+import org.josandlin.webapp.entity.Product;
+import org.josandlin.webapp.entity.Role;
+import org.josandlin.webapp.entity.User;
+import org.josandlin.webapp.mapper.ProductMapper;
+import org.josandlin.webapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +24,7 @@ import java.util.List;
 
 @Component
 @org.springframework.core.annotation.Order(2)
-public class DataMocker  implements CommandLineRunner{
+public class DataMocker implements CommandLineRunner {
 
     OrderDao orderDao;
     RoleDao roleDao;

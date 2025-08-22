@@ -1,6 +1,6 @@
-package org.josandlin.nacbackend2groupjosandlin.dao;
+package org.josandlin.webapp.dao;
 
-import org.josandlin.nacbackend2groupjosandlin.entity.Order;
+import org.josandlin.webapp.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderDao extends JpaRepository<Order, Long> {

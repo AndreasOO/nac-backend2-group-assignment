@@ -1,4 +1,4 @@
-package org.josandlin.nacbackend2groupjosandlin.dto;
+package org.josandlin.webapp.dto;
 
 public class ProductSummaryDTO {
 

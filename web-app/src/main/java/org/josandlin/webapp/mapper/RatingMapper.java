@@ -1,7 +1,7 @@
-package org.josandlin.nacbackend2groupjosandlin.mapper;
+package org.josandlin.webapp.mapper;
 
-import org.josandlin.nacbackend2groupjosandlin.dto.RatingDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.Rating;
+import org.josandlin.webapp.dto.RatingDTO;
+import org.josandlin.webapp.entity.Rating;
 import org.springframework.stereotype.Component;
 
 @Component

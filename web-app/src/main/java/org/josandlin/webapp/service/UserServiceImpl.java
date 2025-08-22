@@ -1,11 +1,12 @@
-package org.josandlin.nacbackend2groupjosandlin.service;
+package org.josandlin.webapp.service;
 
 
-import org.josandlin.nacbackend2groupjosandlin.dao.UserDao;
-import org.josandlin.nacbackend2groupjosandlin.dto.UserDTO;
+import org.josandlin.webapp.dao.UserDao;
+import org.josandlin.webapp.dto.UserDTO;
 import org.springframework.stereotype.Service;
-import org.josandlin.nacbackend2groupjosandlin.mapper.UserMapper;
+import org.josandlin.webapp.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

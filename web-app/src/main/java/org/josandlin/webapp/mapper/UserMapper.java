@@ -1,8 +1,8 @@
-package org.josandlin.nacbackend2groupjosandlin.mapper;
+package org.josandlin.webapp.mapper;
 
-import org.josandlin.nacbackend2groupjosandlin.dto.UserDTO;
-import org.josandlin.nacbackend2groupjosandlin.dto.UserSummaryDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.User;
+import org.josandlin.webapp.dto.UserDTO;
+import org.josandlin.webapp.dto.UserSummaryDTO;
+import org.josandlin.webapp.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

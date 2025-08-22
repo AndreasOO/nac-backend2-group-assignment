@@ -1,9 +1,9 @@
-package org.josandlin.nacbackend2groupjosandlin.entity;
+package org.josandlin.webapp.entity;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 
     @Id

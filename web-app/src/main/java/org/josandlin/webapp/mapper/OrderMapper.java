@@ -1,10 +1,10 @@
-package org.josandlin.nacbackend2groupjosandlin.mapper;
+package org.josandlin.webapp.mapper;
 
-import org.josandlin.nacbackend2groupjosandlin.dto.OrderCreateDTO;
-import org.josandlin.nacbackend2groupjosandlin.dto.OrderDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.Order;
-import org.josandlin.nacbackend2groupjosandlin.entity.Product;
-import org.josandlin.nacbackend2groupjosandlin.entity.User;
+import org.josandlin.webapp.dto.OrderCreateDTO;
+import org.josandlin.webapp.dto.OrderDTO;
+import org.josandlin.webapp.entity.Order;
+import org.josandlin.webapp.entity.Product;
+import org.josandlin.webapp.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

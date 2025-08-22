@@ -1,8 +1,8 @@
-package org.josandlin.nacbackend2groupjosandlin.mapper;
+package org.josandlin.webapp.mapper;
 
-import org.josandlin.nacbackend2groupjosandlin.dto.ProductSummaryDTO;
-import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.Product;
+import org.josandlin.webapp.dto.ProductSummaryDTO;
+import org.josandlin.webapp.dto.ProductDTO;
+import org.josandlin.webapp.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

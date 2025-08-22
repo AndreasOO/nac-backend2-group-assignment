@@ -1,17 +1,17 @@
-package org.josandlin.nacbackend2groupjosandlin.service;
+package org.josandlin.webapp.service;
 
 import jakarta.transaction.Transactional;
-import org.josandlin.nacbackend2groupjosandlin.dto.ProductDTO;
-import org.josandlin.nacbackend2groupjosandlin.entity.Product;
+import org.josandlin.webapp.dto.ProductDTO;
+import org.josandlin.webapp.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
-/*
-    @Transactional
-    ProductDTO addProductToOrder(Long productId, Long orderId); <--- ?????????
+    /*
+        @Transactional
+        ProductDTO addProductToOrder(Long productId, Long orderId); <--- ?????????
 
-*/
+    */
     List<ProductDTO> getProducts();
 
     ProductDTO getProductById(Long id);

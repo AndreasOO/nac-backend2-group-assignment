@@ -1,7 +1,7 @@
-package org.josandlin.nacbackend2groupjosandlin.controller;
+package org.josandlin.webapp.controller;
 
 
-import org.josandlin.nacbackend2groupjosandlin.dto.UserDTO;
+import org.josandlin.webapp.dto.UserDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

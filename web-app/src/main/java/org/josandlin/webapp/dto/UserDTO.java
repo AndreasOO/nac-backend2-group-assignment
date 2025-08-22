@@ -1,4 +1,4 @@
-package org.josandlin.nacbackend2groupjosandlin.dto;
+package org.josandlin.webapp.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,8 @@ public class UserDTO {
 
     List<RoleDTO> roles = new ArrayList<>();
 
-    public UserDTO() {}
+    public UserDTO() {
+    }
 
     public UserDTO(Long id, String username, String password, List<RoleDTO> roles) {
         this.id = id;

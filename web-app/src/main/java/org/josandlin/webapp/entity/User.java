@@ -1,4 +1,4 @@
-package org.josandlin.nacbackend2groupjosandlin.entity;
+package org.josandlin.webapp.entity;
 
 
 import jakarta.persistence.*;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -42,7 +42,7 @@ public class User {
         this.roles = roles;
     }
 
-    public User(String username, String password){
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }

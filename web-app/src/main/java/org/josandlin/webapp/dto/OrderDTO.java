@@ -1,4 +1,4 @@
-package org.josandlin.nacbackend2groupjosandlin.dto;
+package org.josandlin.webapp.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,8 @@ public class OrderDTO {
 
     List<ProductSummaryDTO> products = new ArrayList<>();
 
-    public OrderDTO(){}
+    public OrderDTO() {
+    }
 
     public OrderDTO(Long id, UserSummaryDTO user, List<ProductSummaryDTO> products) {
         this.id = id;

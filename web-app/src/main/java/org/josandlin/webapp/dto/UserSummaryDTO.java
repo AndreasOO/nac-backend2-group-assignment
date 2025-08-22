@@ -1,10 +1,11 @@
-package org.josandlin.nacbackend2groupjosandlin.dto;
+package org.josandlin.webapp.dto;
 
 public class UserSummaryDTO {
     Long id;
     String username;
 
-    public UserSummaryDTO() {}
+    public UserSummaryDTO() {
+    }
 
     public UserSummaryDTO(Long id, String username) {
         this.id = id;

@@ -1,4 +1,4 @@
-package org.josandlin.nacbackend2groupjosandlin.entity;
+package org.josandlin.webapp.entity;
 
 import jakarta.persistence.Embeddable;
 

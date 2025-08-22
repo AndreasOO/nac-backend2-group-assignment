@@ -1,6 +1,6 @@
-package org.josandlin.nacbackend2groupjosandlin.service;
+package org.josandlin.webapp.service;
 
-import org.josandlin.nacbackend2groupjosandlin.dto.UserDTO;
+import org.josandlin.webapp.dto.UserDTO;
 
 import java.util.List;
 
