@@ -1,6 +1,8 @@
-package org.josandlin.library.entity;
+package org.josandlin.library.entity.order;
 
 import jakarta.persistence.*;
+import org.josandlin.library.entity.product.Product;
+import org.josandlin.library.entity.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

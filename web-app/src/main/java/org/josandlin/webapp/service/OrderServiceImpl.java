@@ -5,10 +5,10 @@ import org.josandlin.webapp.dao.ProductDao;
 import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.library.dto.OrderCreateDTO;
 import org.josandlin.library.dto.OrderDTO;
-import org.josandlin.library.entity.Order;
-import org.josandlin.library.entity.Product;
-import org.josandlin.library.entity.User;
-import org.josandlin.library.mapper.OrderMapper;
+import org.josandlin.library.entity.order.Order;
+import org.josandlin.library.entity.product.Product;
+import org.josandlin.library.entity.user.User;
+import org.josandlin.library.mapper.order.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package org.josandlin.library.mapper;
+package org.josandlin.library.mapper.product;
 
 import org.josandlin.library.dto.RatingDTO;
-import org.josandlin.library.entity.Rating;
+import org.josandlin.library.entity.product.Rating;
 import org.springframework.stereotype.Component;
 
 @Component

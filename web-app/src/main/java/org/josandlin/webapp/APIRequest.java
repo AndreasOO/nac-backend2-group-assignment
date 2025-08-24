@@ -1,7 +1,6 @@
 package org.josandlin.webapp;
 
 import org.josandlin.library.dto.ProductDTO;
-import org.josandlin.library.entity.Product;
 import org.josandlin.webapp.service.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;

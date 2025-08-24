@@ -2,7 +2,7 @@ package org.josandlin.productfetcher.service;
 
 import org.josandlin.productfetcher.dao.ProductDao;
 import org.josandlin.library.dto.ProductDTO;
-import org.josandlin.library.mapper.ProductMapper;
+import org.josandlin.library.mapper.product.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
