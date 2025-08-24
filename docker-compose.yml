@@ -17,6 +17,23 @@ services:
       timeout: 5s
       retries: 100
 
+  pf-db:
+    container_name: product-fetcher-db
+    build:
+      context: .
+      dockerfile: Dockerfile.pfdb
+    ports:
+      - "7778:3306"
+    networks:
+      - backend-2
+    environment:
+      - MYSQL_ROOT_PASSWORD=test1234
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ptest1234" ]
+      interval: 5s
+      timeout: 5s
+      retries: 100
+
   spring:
     container_name: backend-2-spring
     build:
@@ -34,6 +51,25 @@ services:
       - DB_SCHEMA=backend_db
     depends_on:
       db:
+        condition: service_healthy
+
+  pf:
+    container_name: product-fetcher
+    build:
+      context: .
+      dockerfile: Dockerfile.pf
+    ports:
+      - "9090:8080"
+    networks:
+      - backend-2
+    environment:
+      - DB_PASSWORD=test1234
+      - DB_USERNAME=product_app
+      - DB_PORT=3306
+      - DB_HOSTNAME=pf-db
+      - DB_SCHEMA=product_db
+    depends_on:
+      pf-db:
         condition: service_healthy
 
 networks:
