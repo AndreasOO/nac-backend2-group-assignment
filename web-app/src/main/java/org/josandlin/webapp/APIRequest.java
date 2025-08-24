@@ -18,20 +18,11 @@ public class APIRequest implements CommandLineRunner {
         this.productService = productService;
     }
 
-//    @Override
-//    public void run(String... args) throws Exception {
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.registerModule(new JavaTimeModule());
-//        List<Product> allProducts = mapper.readValue(
-//                new URL("https://fakestoreapi.com/products"),
-//                new TypeReference<List<Product>>() {}
-//        );
-//        productDao.saveAll(allProducts);
-//    }
 
     @Override
     public void run(String... args) throws Exception {
         System.out.println("STARTING COMMAND LINE RUNNER");
+        Thread.currentThread().sleep(2000);
         List<ProductDTO> allProducts = FakeStoreProductFetcher.fetchProducts();
         productService.saveAll(allProducts);
         System.out.println("STOPPING COMMAND LINE RUNNER");

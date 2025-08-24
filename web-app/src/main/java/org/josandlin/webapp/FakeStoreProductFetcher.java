@@ -14,7 +14,7 @@ public class FakeStoreProductFetcher {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         List<ProductDTO> allProducts = mapper.readValue(
-                new URL("https://fakestoreapi.com/products"),
+                new URL("http://pf:8080/api/products"),
                 new TypeReference<List<ProductDTO>>() {
                 }
         );
