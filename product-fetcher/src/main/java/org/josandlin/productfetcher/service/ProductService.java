@@ -1,7 +1,7 @@
 package org.josandlin.productfetcher.service;
 
 import jakarta.transaction.Transactional;
-import org.josandlin.productfetcher.dto.ProductDTO;
+import org.josandlin.library.dto.ProductDTO;
 
 import java.util.List;
 

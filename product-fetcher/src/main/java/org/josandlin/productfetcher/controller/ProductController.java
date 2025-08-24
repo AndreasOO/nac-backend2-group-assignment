@@ -1,7 +1,7 @@
 package org.josandlin.productfetcher.controller;
 
 import org.josandlin.productfetcher.DataSeeder;
-import org.josandlin.productfetcher.dto.ProductDTO;
+import org.josandlin.library.dto.ProductDTO;
 import org.josandlin.productfetcher.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
