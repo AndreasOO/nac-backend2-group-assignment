@@ -72,6 +72,7 @@ class FakeStoreProductFetcherIT {
     @BeforeEach
     void setUp() {
         RestAssured.baseURI = "http://localhost:" + port;
+        productDao.deleteAll();
     }
 
     @Test
@@ -86,8 +87,6 @@ class FakeStoreProductFetcherIT {
                 .response();
 
         String json = response.getBody().asString();
-
-        System.out.println(json);
 
         assertTrue(json.contains("id"));
         assertTrue(json.contains("title"));
