@@ -1,6 +1,8 @@
 package org.josandlin.productfetcher;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.josandlin.productfetcher.service.ProductService;
 import org.josandlin.productfetcher.dao.ProductDao;
 import org.junit.jupiter.api.AfterAll;
@@ -19,11 +21,14 @@ import org.josandlin.library.dto.RatingDTO;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class IntegrationTests {
+class FakeStoreProductFetcherIT {
 
     @LocalServerPort
     private Integer port;
@@ -67,6 +72,32 @@ class IntegrationTests {
     @BeforeEach
     void setUp() {
         RestAssured.baseURI = "http://localhost:" + port;
+    }
+
+    @Test
+    void getAllProductsFromFakeStoreShouldReturnCorrectJsonProperties() {
+        Response response = given()
+                .when()
+                .get("https://fakestoreapi.com/products")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .extract()
+                .response();
+
+        String json = response.getBody().asString();
+
+        System.out.println(json);
+
+        assertTrue(json.contains("id"));
+        assertTrue(json.contains("title"));
+        assertTrue(json.contains("price"));
+        assertTrue(json.contains("description"));
+        assertTrue(json.contains("category"));
+        assertTrue(json.contains("image"));
+        assertTrue(json.contains("rating"));
+        assertTrue(json.contains("rate"));
+        assertTrue(json.contains("count"));
 
     }
 
@@ -120,7 +151,7 @@ class IntegrationTests {
     }
 
     @Test
-    void SaveAllProductsFromFakeStoreShouldReturnSameAmountOfProducts() {
+    void saveAllProductsFromFakeStoreShouldReturnSameAmountOfProducts() {
 
         try {
             List<ProductDTO> productDTOs = FakeStoreProductFetcher.fetchProducts();
