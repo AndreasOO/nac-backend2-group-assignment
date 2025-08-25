@@ -6,10 +6,16 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EntityScan(basePackages = "org.josandlin.library.entity")
+@EntityScan(basePackages = {
+        "org.josandlin.library.entity.order",
+        "org.josandlin.library.entity.product",
+        "org.josandlin.library.entity.user"
+})
 @ComponentScan(basePackages = {
         "org.josandlin.webapp",
-        "org.josandlin.library.mapper"
+        "org.josandlin.library.mapper.order",
+        "org.josandlin.library.mapper.product",
+        "org.josandlin.library.mapper.user"
 })
 public class WebAppApplication {
 

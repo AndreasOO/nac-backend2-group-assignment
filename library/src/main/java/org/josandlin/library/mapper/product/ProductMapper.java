@@ -1,9 +1,9 @@
-package org.josandlin.library.mapper;
+package org.josandlin.library.mapper.product;
 
 
 import org.josandlin.library.dto.ProductDTO;
 import org.josandlin.library.dto.ProductSummaryDTO;
-import org.josandlin.library.entity.Product;
+import org.josandlin.library.entity.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

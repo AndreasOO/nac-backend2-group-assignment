@@ -1,6 +1,6 @@
-package org.josandlin.webapp.service;
+package org.josandlin.productfetcher.service;
 
-import org.josandlin.webapp.dao.ProductDao;
+import org.josandlin.productfetcher.dao.ProductDao;
 import org.josandlin.library.dto.ProductDTO;
 import org.josandlin.library.mapper.product.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +33,6 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO getProductById(Long id) {
         return productDao.findById(id).map(productMapper::toProductDto).orElse(null);
     }
-
-//    @Override
-//    public ProductDTO getProductById(Long id) {
-//        Product product = productDao.findById(id).isPresent() ? productDao.findById(id).get() : null;
-//        return productMapper.toProductDto(product);
-//    }
 
     @Override
     public boolean saveAll(List<ProductDTO> productDTO) {

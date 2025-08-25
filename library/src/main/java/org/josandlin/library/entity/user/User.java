@@ -1,4 +1,4 @@
-package org.josandlin.library.entity;
+package org.josandlin.library.entity.user;
 
 
 import jakarta.persistence.*;

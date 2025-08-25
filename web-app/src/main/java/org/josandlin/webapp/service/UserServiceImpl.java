@@ -4,7 +4,7 @@ package org.josandlin.webapp.service;
 import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.library.dto.UserDTO;
 import org.springframework.stereotype.Service;
-import org.josandlin.library.mapper.UserMapper;
+import org.josandlin.library.mapper.user.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
