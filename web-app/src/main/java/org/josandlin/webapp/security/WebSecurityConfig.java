@@ -38,14 +38,15 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/", "/js/**", "/css/**", "/images/**", "/login/**", "/loginView", "/logout/**", "/products/**").permitAll()
+                        .requestMatchers("/", "/js/**", "/css/**", "/images/**", "/login", "/loginView", "/logout/**", "/products/**").permitAll()
                         .requestMatchers("/products/{id}/buy").hasRole("CUSTOMER")
                         .requestMatchers("/admin-orders").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> {
-                    form.loginPage("/loginView");
-                    form.loginProcessingUrl("/products");
+                    form
+                        .permitAll()
+                        .defaultSuccessUrl("/products", true);
                 })
                 .logout((logout) -> {
                     logout.permitAll();
