@@ -24,15 +24,20 @@
                     <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('Admin')">Orders</a>
+                    <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('ADMIN')">Orders</a>
                 </li>
             </ul>
             <span class="navbar-text">
-                    <a class="btn btn-dark text-white px-5" th:href="@{/loginView}">Login</a>
-                </span>
+                <form method="POST" th:action="@{/logout}">
+                    <button type="submit" class="btn btn-dark text-white px-5" sec:authorize="isAuthenticated()">Logout</button>
+                </form>
+                <a class="btn btn-dark text-white px-5" sec:authorize="!isAuthenticated()" th:href="@{/loginView}">Login</a>
+            </span>
         </div>
     </div>
 </nav>
+
+
 
 <div class="container mt-4">
     <h1>Order Management - Admin Panel</h1>
