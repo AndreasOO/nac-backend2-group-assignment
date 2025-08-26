@@ -1,7 +1,9 @@
 package org.josandlin.webapp.controller;
 
+import org.springframework.security.core.Authentication;
+import org.josandlin.webapp.security.ConcreteUserDetails;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
 import org.josandlin.library.dto.OrderCreateDTO;
 import org.josandlin.library.dto.OrderDTO;
 import org.josandlin.library.dto.ProductDTO;
@@ -60,12 +62,23 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/products/{productId}/buy")
     public String buyProduct(Model model, @PathVariable Long productId, Authentication authentication) {
-//        ConcreteUserDetails user = (ConcreteUserDetails) userDetailsService.loadUserByUsername(authentication.name());
-//        Long userId = user.getId();
-//
-//        OrderCreateDTO dto = new OrderCreateDTO(productId, userId);
-//
-//        orderService.createOrder(productId, userId);
+
+        //Anledningen till att det här inte funkade förut var att vi hade fel import
+        //Knäppt att typa ett Con.Us.Det.-objekt till Con.Us.Det. men det måste tydligen vara så ...
+        ConcreteUserDetails user = (ConcreteUserDetails) authentication.getPrincipal();
+        Long userId = user.getId();
+
+        //Vi har ju skrivit objekten för att kunna ha en lista med produkter, så därför gjorde jag ju
+        //logiken i DTO så att den enda produkten ska läggas till i en lista ...
+        //Det finns ju ingen lista från början, så därför får konstruktorn ta in null som lista.
+        //Men vi kan ju skriva en ny konstruktor som inte behöver ta in någon lista också antar jag.
+        //NU tar jag lite paus.
+        // men det här funkar väl som du gjort nu? Jaa det tror jag men har inte kört ... :D
+        OrderCreateDTO dto = new OrderCreateDTO(null, userId);
+        dto.addProduct(productId);
+
+        orderService.createOrder(dto);
+
         return "redirect:/products";
     }
 
