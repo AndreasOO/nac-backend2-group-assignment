@@ -33,17 +33,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO createOrder(OrderCreateDTO createDTO) {
+    public boolean createOrder(OrderCreateDTO createDTO) {
         User user = userDao.findById(createDTO.getUserId()).orElse(null);
+        if (user == null) return false;
 
         List<Product> products = createDTO.getProducts().stream().map(productDao::findById)
                 .filter(Optional::isPresent).map(Optional::get).toList();
+        if (products.isEmpty()) return false;
 
         Order newOrder = orderMapper.createDtoToOrderEntity(createDTO, user, products);
 
         orderDao.save(newOrder);
 
-        return orderMapper.toOrderDto(newOrder);
+        return true;
     }
 
 
