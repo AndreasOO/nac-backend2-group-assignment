@@ -22,10 +22,7 @@ public class APIRequest implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("STARTING COMMAND LINE RUNNER");
-        Thread.currentThread().sleep(2000);
         List<ProductDTO> allProducts = fetcher.fetchProducts();
         productService.saveAll(allProducts);
-        System.out.println("STOPPING COMMAND LINE RUNNER");
     }
 }
