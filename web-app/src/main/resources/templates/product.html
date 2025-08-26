@@ -42,6 +42,19 @@
 
     <div class="container d-flex justify-content-center" style="margin-top: 8%;">
         <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
+
+            <div class="mt-3">
+
+                <div th:if="${buyConfirmation}" class="alert alert-success" role="alert">
+                    <span th:text="${buyConfirmation}"></span>
+                </div>
+
+                <div th:if="${buyError}" class="alert alert-danger" role="alert">
+                    <span th:text="${buyError}"></span>
+                </div>
+
+            </div>
+
             <form th:action="@{/products/{id}/buy(id=${product.id})}" method="POST">
                 <h2 class="pb-3 text-dark" th:text="${product.title}"></h2>
                 <img th:src="@{${product.image}}" class="img-fluid" alt="Product image">
@@ -52,6 +65,7 @@
                     <button type="submit" class="btn btn-dark w-100">Buy</button>
                 </div>
             </form>
+
             <div class="d-flex flex-column align-items-center pt-3">
                 <a class="btn btn-dark text-white w-100" th:href="@{/products}">Return to products</a>
             </div>

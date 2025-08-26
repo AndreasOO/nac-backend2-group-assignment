@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import org.josandlin.webapp.security.ConcreteUserDetails;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -61,14 +62,20 @@ public class ProductController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/products/{productId}/buy")
-    public String buyProduct(Model model, @PathVariable Long productId, Authentication authentication) {
+    public String buyProduct(Model model, @PathVariable Long productId, Authentication authentication, RedirectAttributes redirectAttributes) {
         try{
             ConcreteUserDetails user = (ConcreteUserDetails) authentication.getPrincipal();
             Long userId = user.getId();
             OrderCreateDTO dto = new OrderCreateDTO(null, userId);
             dto.addProduct(productId);
 
-            orderService.createOrder(dto);
+            if (orderService.createOrder(dto)){
+                redirectAttributes.addFlashAttribute("buyConfirmation", "You successfully bought a thing!");
+            } else {
+                redirectAttributes.addFlashAttribute("buyError", "Something went wrong, never mind how or why.");
+            }
+
+            return "redirect:/products/" + productId;
         }
         catch(Exception e){
             System.out.println("ERROR INSIDE ENDPOINT: " + e);
@@ -76,5 +83,4 @@ public class ProductController {
 
         return "redirect:/products";
     }
-
 }
