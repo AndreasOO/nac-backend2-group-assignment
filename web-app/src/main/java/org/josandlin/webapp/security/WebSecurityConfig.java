@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -38,13 +39,14 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/", "/js/**", "/css/**", "/images/**", "/login", "/loginView", "/logout/**", "/products/**").permitAll()
                         .requestMatchers("/products/{id}/buy").hasRole("CUSTOMER")
+                        .requestMatchers("/", "/js/**", "/css/**", "/images/**", "/login", "/loginView", "/logout/**", "/products/**").permitAll(
                         .requestMatchers("/admin-orders").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> {
-                    form
+                    form.loginPage("/loginView")
+                        .loginProcessingUrl("/login")
                         .permitAll()
                         .defaultSuccessUrl("/products", true);
                 })

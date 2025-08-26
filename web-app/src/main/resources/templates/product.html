@@ -7,7 +7,6 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-white fs-4">
     <div class="container mt-4 border-bottom border-secondary">
 
@@ -24,15 +23,20 @@
                     <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('Admin')">Orders</a>
+                    <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('ADMIN')">Orders</a>
                 </li>
             </ul>
             <span class="navbar-text">
-                <a class="btn btn-dark text-white px-5" th:href="@{/loginView}">Login</a>
+                <form method="POST" th:action="@{/logout}">
+                    <button type="submit" class="btn btn-dark text-white px-5" sec:authorize="isAuthenticated()">Logout</button>
+                </form>
+                <a class="btn btn-dark text-white px-5" sec:authorize="!isAuthenticated()" th:href="@{/loginView}">Login</a>
             </span>
         </div>
     </div>
 </nav>
+
+
 
 <div class="container mt-4">
 
