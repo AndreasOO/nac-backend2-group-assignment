@@ -62,22 +62,17 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/products/{productId}/buy")
     public String buyProduct(Model model, @PathVariable Long productId, Authentication authentication) {
+        try{
+            ConcreteUserDetails user = (ConcreteUserDetails) authentication.getPrincipal();
+            Long userId = user.getId();
+            OrderCreateDTO dto = new OrderCreateDTO(null, userId);
+            dto.addProduct(productId);
 
-        //Anledningen till att det här inte funkade förut var att vi hade fel import
-        //Knäppt att typa ett Con.Us.Det.-objekt till Con.Us.Det. men det måste tydligen vara så ...
-        ConcreteUserDetails user = (ConcreteUserDetails) authentication.getPrincipal();
-        Long userId = user.getId();
-
-        //Vi har ju skrivit objekten för att kunna ha en lista med produkter, så därför gjorde jag ju
-        //logiken i DTO så att den enda produkten ska läggas till i en lista ...
-        //Det finns ju ingen lista från början, så därför får konstruktorn ta in null som lista.
-        //Men vi kan ju skriva en ny konstruktor som inte behöver ta in någon lista också antar jag.
-        //NU tar jag lite paus.
-        // men det här funkar väl som du gjort nu? Jaa det tror jag men har inte kört ... :D
-        OrderCreateDTO dto = new OrderCreateDTO(null, userId);
-        dto.addProduct(productId);
-
-        orderService.createOrder(dto);
+            orderService.createOrder(dto);
+        }
+        catch(Exception e){
+            System.out.println("ERROR INSIDE ENDPOINT: " + e);
+        }
 
         return "redirect:/products";
     }

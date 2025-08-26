@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
+@Order(1)
 public class APIRequest implements CommandLineRunner {
 
     private final ProductService productService;
