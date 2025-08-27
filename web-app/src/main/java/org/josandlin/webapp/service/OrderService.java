@@ -17,5 +17,5 @@ public interface OrderService {
     ResultMessage deleteOrderById(Long id);
 
     @Transactional
-    boolean createOrder(OrderCreateDTO createDTO);
+    ResultMessage createOrder(OrderCreateDTO createDTO);
 }

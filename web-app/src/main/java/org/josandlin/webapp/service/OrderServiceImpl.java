@@ -34,19 +34,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean createOrder(OrderCreateDTO createDTO) {
+    public ResultMessage createOrder(OrderCreateDTO createDTO) {
+
         User user = userDao.findById(createDTO.getUserId()).orElse(null);
-        if (user == null) return false;
+        if (user == null) {
+            return new ResultMessage(false, "Purchase failed; no customer found. Please try login in again.");
+        }
 
         List<Product> products = createDTO.getProducts().stream().map(productDao::findById)
                 .filter(Optional::isPresent).map(Optional::get).toList();
-        if (products.isEmpty()) return false;
+        if (products.isEmpty()){
+            return new ResultMessage(false, "Purchase failed; product not found in database. Sorry.");
+        }
 
         Order newOrder = orderMapper.createDtoToOrderEntity(createDTO, user, products);
-
         orderDao.save(newOrder);
 
-        return true;
+        return new ResultMessage(true, "Order created successfully.");
     }
 
 

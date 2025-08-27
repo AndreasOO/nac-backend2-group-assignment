@@ -1,5 +1,6 @@
 package org.josandlin.webapp.controller;
 
+import org.josandlin.webapp.utils.ResultMessage;
 import org.springframework.security.core.Authentication;
 import org.josandlin.webapp.security.ConcreteUserDetails;
 import jakarta.servlet.http.HttpServletRequest;
@@ -69,18 +70,18 @@ public class ProductController {
             OrderCreateDTO dto = new OrderCreateDTO(null, userId);
             dto.addProduct(productId);
 
-            if (orderService.createOrder(dto)){
-                redirectAttributes.addFlashAttribute("buyConfirmation", "You successfully bought a thing!");
-            } else {
-                redirectAttributes.addFlashAttribute("buyError", "Something went wrong, never mind how or why.");
-            }
+            ResultMessage result = orderService.createOrder(dto);
+
+            if (result.isSuccess()) {
+                redirectAttributes.addFlashAttribute("buyConfirmation", result.getMessage());
+            } else
+                redirectAttributes.addFlashAttribute("buyError", result.getMessage());
 
             return "redirect:/products/" + productId;
         }
         catch(Exception e){
             System.out.println("ERROR INSIDE ENDPOINT: " + e);
+            return "redirect:/products";
         }
-
-        return "redirect:/products";
     }
 }
