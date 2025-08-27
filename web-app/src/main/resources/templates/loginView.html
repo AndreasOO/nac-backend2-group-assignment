@@ -24,6 +24,9 @@
                     <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" th:href="@{/register}">Registration</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('ADMIN')">Orders</a>
                 </li>
             </ul>
@@ -45,6 +48,9 @@
         <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
             <h2 class="pb-3 text-dark">Login</h2>
             <p th:if="${error}" class="text-danger text-center" th:text="${error}"></p>
+            <div th:if="${success}" class="alert alert-success" role="alert">
+                <span th:text="${success}"></span>
+            </div>
             <form th:action="@{/login}" method="post" th:object="${user}">
                 <div class="form-group">
                     <label for="name">Name:</label>

@@ -44,7 +44,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers(HttpMethod.POST, "/products/*/buy").hasAuthority("CUSTOMER")
                         .requestMatchers("/admin-orders").hasAuthority("ADMIN")
-                        .requestMatchers("/", "/js/**", "/css/**", "/images/**", "/login", "/loginView", "/logout/**").permitAll()
+                        .requestMatchers("/", "/js/**", "/css/**", "/images/**", "/login", "/loginView", "/logout/**", "/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                         .anyRequest().authenticated()
                 )
