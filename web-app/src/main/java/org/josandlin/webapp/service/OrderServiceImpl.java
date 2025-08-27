@@ -9,6 +9,7 @@ import org.josandlin.library.entity.order.Order;
 import org.josandlin.library.entity.product.Product;
 import org.josandlin.library.entity.user.User;
 import org.josandlin.library.mapper.order.OrderMapper;
+import org.josandlin.webapp.utils.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +64,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean deleteOrderById(Long id) {
-        return false;
+    public ResultMessage deleteOrderById(Long id) {
+
+        Order order = orderDao.findById(id).orElse(null);
+        if (order == null) {
+            return new ResultMessage(false, "Could not delete order with id " + id + ": Order not found.");
+        }
+
+        orderDao.delete(order);
+        return new ResultMessage(true, "Successfully deleted order with id " + id + ".");
     }
 }
