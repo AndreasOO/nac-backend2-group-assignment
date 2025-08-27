@@ -15,7 +15,8 @@ import org.springframework.context.annotation.ComponentScan;
         "org.josandlin.webapp",
         "org.josandlin.library.mapper.order",
         "org.josandlin.library.mapper.product",
-        "org.josandlin.library.mapper.user"
+        "org.josandlin.library.mapper.user",
+        "org.josandlin.library.fetcher"
 })
 public class WebAppApplication {
 

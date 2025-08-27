@@ -11,7 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
 })
 @ComponentScan(basePackages = {
         "org.josandlin.productfetcher",
-        "org.josandlin.library.mapper.product"
+        "org.josandlin.library.mapper.product",
+        "org.josandlin.library.fetcher"
 })
 public class ProductFetcherApplication {
 
