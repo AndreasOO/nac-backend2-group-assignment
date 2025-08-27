@@ -3,6 +3,7 @@ package org.josandlin.webapp.service;
 import jakarta.transaction.Transactional;
 import org.josandlin.library.dto.OrderCreateDTO;
 import org.josandlin.library.dto.OrderDTO;
+import org.josandlin.webapp.utils.ResultMessage;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface OrderService {
     OrderDTO getOrderById(long id);
 
     @Transactional
-    boolean deleteOrderById(Long id);
+    ResultMessage deleteOrderById(Long id);
 
     @Transactional
     boolean createOrder(OrderCreateDTO createDTO);
