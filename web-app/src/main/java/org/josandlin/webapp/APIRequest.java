@@ -2,9 +2,12 @@ package org.josandlin.webapp;
 
 import org.josandlin.library.dto.ProductDTO;
 import org.josandlin.webapp.service.ProductService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.josandlin.library.fetcher.Fetcher;
+
 
 import java.util.List;
 
@@ -12,17 +15,20 @@ import java.util.List;
 @Order(1)
 public class APIRequest implements CommandLineRunner {
 
-    private final ProductService productService;
-    private final FakeStoreProductFetcher fetcher;
+    @Value("${product.fetcher.url}")
+    private String targetUrl;
 
-    public APIRequest(ProductService productService, FakeStoreProductFetcher fetcher) {
+    private final ProductService productService;
+    private final Fetcher fetcher;
+
+    public APIRequest(ProductService productService, Fetcher fetcher) {
         this.productService = productService;
         this.fetcher = fetcher;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        List<ProductDTO> allProducts = fetcher.fetchProducts();
+        List<ProductDTO> allProducts = fetcher.fetchProducts(targetUrl);
         productService.saveAll(allProducts);
     }
 }
