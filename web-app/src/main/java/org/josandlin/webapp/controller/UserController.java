@@ -4,6 +4,8 @@ package org.josandlin.webapp.controller;
 import org.apache.el.util.Validation;
 import org.josandlin.library.dto.UserDTO;
 import org.josandlin.webapp.service.UserService;
+import org.josandlin.webapp.service.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,11 @@ public class UserController {
 
     UserService userService;
 
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/loginView")
     public String login(Model model) {
         model.addAttribute("user", new UserDTO());
@@ -35,9 +42,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String createUser(RedirectAttributes redirectAttributes, UserDTO userDTO, BindingResult result) {
-        /// Kanske bra att hämta servicemetoden här????
-        System.out.println("inside reg post endpoint");
+    public String createNewUser(RedirectAttributes redirectAttributes, UserDTO userDTO, BindingResult result) {
+        userService.createUser(userDTO);
+        System.out.println("inside post endpoint");
         if (result.hasErrors()) {
             return "redirect:/registerUser";
         }
@@ -47,7 +54,6 @@ public class UserController {
     }
     @GetMapping("/register")
     public String register(Model model) {
-        System.out.println("inside reg get endpoint");
         model.addAttribute("user", new UserDTO());
         return "registerUser";
     }
