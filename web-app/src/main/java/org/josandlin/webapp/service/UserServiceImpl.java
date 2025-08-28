@@ -9,6 +9,7 @@ import org.josandlin.library.mapper.user.RoleMapper;
 import org.josandlin.webapp.dao.RoleDao;
 import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.library.dto.UserDTO;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.josandlin.library.mapper.user.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final RoleDao roleDao;
     private final RoleMapper roleMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(final UserDao userDao, final UserMapper userMapper, RoleDao roleDao, RoleMapper roleMapper) {
@@ -52,13 +56,13 @@ public class UserServiceImpl implements UserService {
     public UserDTO createUser(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
-        List<Role> roles = userDTO.getRoles()
-                .stream()
+        List<Role> roles = userDTO.getRoles().stream()
                 .map(roleDTO -> roleDao.findRolesByName(roleDTO.getName())
                         .orElseThrow(() -> new RuntimeException("Role not found: " + roleDTO.getName())))
                 .toList();
+        user.getRoles().addAll(roles);
 
         user.getRoles().addAll(roles);
         userDao.save(user);
