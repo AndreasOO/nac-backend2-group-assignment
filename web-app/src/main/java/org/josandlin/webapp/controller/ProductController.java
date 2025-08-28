@@ -58,6 +58,7 @@ public class ProductController {
     public String getProduct(Model model, @PathVariable Long id) {
         ProductDTO product = productService.getProductById(id);
         model.addAttribute("product", product);
+        model.addAttribute("rating", product.getRating());
         return "product";
     }
 
