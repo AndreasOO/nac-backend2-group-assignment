@@ -62,7 +62,6 @@ public class ProductController {
         return "product";
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PostMapping("/products/{productId}/buy")
     public String buyProduct(Model model, @PathVariable Long productId, Authentication authentication, RedirectAttributes redirectAttributes) {
         try{
