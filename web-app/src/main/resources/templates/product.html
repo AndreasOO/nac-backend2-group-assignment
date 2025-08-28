@@ -59,6 +59,7 @@
                 <h2 class="pb-3 text-dark" th:text="${product.title}"></h2>
                 <img th:src="@{${product.image}}" class="img-fluid" alt="Product image">
                 <p class="text-muted" th:text="${product.category}"></p>
+                <p class="text-muted" th:text="'rated ' + ${rating.rate} +' by ' + ${rating.count} +' customers'"></p>
                 <p th:text="${product.description}"></p>
                 <p class="font-weight-bold" th:text="'$' + ${product.price}"></p>
                 <div class="d-flex flex-column align-items-center pt-3">
