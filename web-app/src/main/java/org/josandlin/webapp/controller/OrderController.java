@@ -30,7 +30,7 @@ public class OrderController {
         return "admin-orders";
     }
 
-    @RequestMapping("/orders/{id}/delete")
+    @PostMapping("/orders/{id}/delete")
     public String deleteOrder(@PathVariable long id, Model model, RedirectAttributes redirectAttributes, Authentication authentication) {
 
         ResultMessage result = orderService.deleteOrderById(id);
