@@ -3,6 +3,7 @@ package org.josandlin.productfetcher;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.josandlin.library.fetcher.Fetcher;
 import org.josandlin.productfetcher.service.ProductService;
 import org.josandlin.productfetcher.dao.ProductDao;
 import org.junit.jupiter.api.AfterAll;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -21,14 +23,13 @@ import org.josandlin.library.dto.RatingDTO;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class FakeStoreProductFetcherIT {
+class ProductFetcherIT {
 
     @LocalServerPort
     private Integer port;
@@ -63,10 +64,14 @@ class FakeStoreProductFetcherIT {
     @Autowired
     ProductDao productDao;
 
-
-
     @Autowired
     ProductService productService;
+
+    @Autowired
+    Fetcher productFetcher;
+
+    @Value("${product.fetcher.url}")
+    private String targetUrl;
 
 
     @BeforeEach
@@ -105,7 +110,7 @@ class FakeStoreProductFetcherIT {
     void getAllProductsFromFakeStoreShouldReturnAllProducts() {
 
         try {
-            List<ProductDTO> products = FakeStoreProductFetcher.fetchProducts();
+            List<ProductDTO> products = productFetcher.fetchProducts(targetUrl);
 
             assertEquals(products.stream().map(ProductDTO::getId).filter(id -> id > 0).toList().size()
                     , products.size());
@@ -149,11 +154,27 @@ class FakeStoreProductFetcherIT {
 
     }
 
+
+    @Test
+    void saveAllProductsFromFakeStoreShouldReturnAtLeastOneProduct() {
+
+        try {
+            List<ProductDTO> productDTOs = productFetcher.fetchProducts(targetUrl);
+            productService.saveAll(productDTOs);
+
+            assertFalse(productService.getProducts().isEmpty());
+
+        } catch (Exception e) {
+            assertFalse(e instanceof Exception);
+        }
+
+    }
+
     @Test
     void saveAllProductsFromFakeStoreShouldReturnSameAmountOfProducts() {
 
         try {
-            List<ProductDTO> productDTOs = FakeStoreProductFetcher.fetchProducts();
+            List<ProductDTO> productDTOs = productFetcher.fetchProducts(targetUrl);
             productService.saveAll(productDTOs);
 
             assertEquals(productService.getProducts().size(), productDTOs.size());
