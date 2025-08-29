@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface RoleDao extends JpaRepository<Role, Long> {
 
-    public Optional<Role> findRolesByName(String roleName);
+    Optional<Role> findRoleByName(String name);
 }

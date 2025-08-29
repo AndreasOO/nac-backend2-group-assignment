@@ -3,12 +3,14 @@ package org.josandlin.webapp.service;
 
 import jakarta.transaction.Transactional;
 import org.josandlin.library.dto.RoleDTO;
+import org.josandlin.library.dto.UserCreateDTO;
 import org.josandlin.library.entity.user.Role;
 import org.josandlin.library.entity.user.User;
 import org.josandlin.library.mapper.user.RoleMapper;
 import org.josandlin.webapp.dao.RoleDao;
 import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.library.dto.UserDTO;
+import org.josandlin.webapp.utils.ResultMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.josandlin.library.mapper.user.UserMapper;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import javax.management.relation.RoleNotFoundException;
+import javax.xml.transform.Result;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,16 +29,18 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final RoleDao roleDao;
     private final RoleMapper roleMapper;
+    private final RoleService roleService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(final UserDao userDao, final UserMapper userMapper, RoleDao roleDao, RoleMapper roleMapper) {
+    public UserServiceImpl(final UserDao userDao, final UserMapper userMapper, RoleDao roleDao, RoleMapper roleMapper, RoleService roleService) {
         this.userDao = userDao;
         this.userMapper = userMapper;
         this.roleDao = roleDao;
         this.roleMapper = roleMapper;
+        this.roleService = roleService;
     }
 
     @Override
@@ -53,46 +58,16 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+    public ResultMessage createUser(UserCreateDTO userDTO) {
+        Role role = roleService.getRoleByName(userDTO.getRole());
+        if (role == null) {
+            return new ResultMessage(false, "No role found.");
+        }
 
-        List<Role> roles = userDTO.getRoles().stream()
-                .map(roleDTO -> roleDao.findRolesByName(roleDTO.getName())
-                        .orElseThrow(() -> new RuntimeException("Role not found: " + roleDTO.getName())))
-                .toList();
-        user.getRoles().addAll(roles);
-
-        user.getRoles().addAll(roles);
+        User user = userMapper.createDtoToEntity(userDTO);
+        user.getRoles().add(role);
         userDao.save(user);
-        System.out.println("SAVED USER: " + user);
-        return userDTO;
-    }
 
+        return new ResultMessage(true, "User created.");
+    }
 }
-
-/*
-   private List<Role> mapRoles(List<RoleDTO> roleDTOs) {
-        return roleDTOs.stream()
-                .map(roleDTO -> {
-                    try {
-                        return roleDao.findbyName(roleDTO.getName())
-                                .orElseThrow(() -> new RoleNotFoundException("Role not found: " + roleDTO.getName()));
-                    } catch (RoleNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .collect(Collectors.toList());
-    }
-
-     public UserDTO createUser0(UserDTO userDTO) {
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
-        user.getRoles().addAll();
-
-        User savedUser = userDao.save(user);
-        return userMapper.toUserDto(savedUser);
-    }
- */

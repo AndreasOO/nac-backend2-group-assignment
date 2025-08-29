@@ -47,7 +47,7 @@
             <div class="card shadow p-4">
                 <h2 class="text-center mb-4">Register New Account</h2>
 
-                <form method="POST" th:action="@{/register}">
+                <form method="POST" th:action="@{/registerUser}">
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input id="username" type="text" name="username" class="form-control" placeholder="Enter username" required>
@@ -58,10 +58,10 @@
                         <input id="password" type="password" name="password" class="form-control" placeholder="Enter password" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="roles" class="form-label">Select Role</label>
-                        <select id="roles" name="roles" class="form-control" required>
+                        <label for="role" class="form-label">Select Role</label>
+                        <select id="role" name="role" class="form-control" required>
                             <option value="">Choose a role...</option>
-                            <option value="USER">User</option>
+                            <option value="CUSTOMER">Customer</option>
                             <option value="ADMIN">Admin</option>
                         </select>
                     </div>
@@ -74,7 +74,6 @@
             </div>
             <div class="container d-flex justify-content-center" style="margin-top: 8%;">
                 <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
-
                     <div class="mt-3">
 
                         <div th:if="${registrationConf}" class="alert alert-success" role="alert">
@@ -84,12 +83,11 @@
                         <div th:if="${regError}" class="alert alert-danger" role="alert">
                             <span th:text="${regError}"></span>
                         </div>
-
                     </div>
-
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>
