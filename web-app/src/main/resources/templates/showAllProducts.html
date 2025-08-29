@@ -36,6 +36,9 @@
                     <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" th:href="@{/register}">Registration</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('ADMIN')">Orders</a>
                 </li>
             </ul>

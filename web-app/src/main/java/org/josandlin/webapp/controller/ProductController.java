@@ -63,7 +63,7 @@ public class ProductController {
     }
 
     @PostMapping("/products/{productId}/buy")
-    public String buyProduct(Model model, @PathVariable Long productId, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String buyProduct(@PathVariable Long productId, Authentication authentication, RedirectAttributes redirectAttributes) {
         try{
             ConcreteUserDetails user = (ConcreteUserDetails) authentication.getPrincipal();
             Long userId = user.getId();

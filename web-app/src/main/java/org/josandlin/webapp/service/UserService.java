@@ -1,6 +1,8 @@
 package org.josandlin.webapp.service;
 
+import org.josandlin.library.dto.UserCreateDTO;
 import org.josandlin.library.dto.UserDTO;
+import org.josandlin.webapp.utils.ResultMessage;
 
 import java.util.List;
 
@@ -10,17 +12,6 @@ public interface UserService {
 
     UserDTO getUserById(Long id);
 
-
-    /*
-    @Transactional
-    UserDTO createUser(UserDTO userDTO);
-
-    @Transactional
-    UserDTO deleteUser(UserDTO userDTO);
-
-    @Transactional
-    UserDTO editUser(UserDTO userDTO);
-
-     */
+    ResultMessage createUser(UserCreateDTO userDTO);
 
 }

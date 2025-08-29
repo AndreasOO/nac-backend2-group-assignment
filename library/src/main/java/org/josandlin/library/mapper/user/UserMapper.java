@@ -1,6 +1,7 @@
 package org.josandlin.library.mapper.user;
 
 
+import org.josandlin.library.dto.UserCreateDTO;
 import org.josandlin.library.dto.UserDTO;
 import org.josandlin.library.dto.UserSummaryDTO;
 import org.josandlin.library.entity.user.User;
@@ -41,6 +42,11 @@ public class UserMapper {
 
         return new User(dto.getId(), dto.getUsername(), dto.getPassword(),
                 dto.getRoles().stream().map(roleMapper::toRoleEntity).toList());
+    }
+
+    public User createDtoToEntity(UserCreateDTO dto) {
+
+        return new User(dto.getUsername(), dto.getPassword());
     }
 
 }

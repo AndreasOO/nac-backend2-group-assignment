@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Register User</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white fs-4">
+    <div class="container mt-4 border-bottom border-secondary">
+
+        <a class="navbar-brand" th:href="@{/products}">FAKE STORE</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/products}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/products}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"  sec:authorize="isAuthenticated()">Your account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/register}">Registration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/orders}" sec:authorize="hasAuthority('ADMIN')">Orders</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                <form method="POST" th:action="@{/logout}">
+                    <button type="submit" class="btn btn-dark text-white px-5" sec:authorize="isAuthenticated()">Logout</button>
+                </form>
+                <a class="btn btn-dark text-white px-5" sec:authorize="!isAuthenticated()" th:href="@{/loginView}">Login</a>
+            </span>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow p-4">
+                <h2 class="text-center mb-4">Register New Account</h2>
+
+                <form method="POST" th:action="@{/registerUser}">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" name="username" class="form-control" placeholder="Enter username" required>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" name="password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="role" class="form-label">Select Role</label>
+                        <select id="role" name="role" class="form-control" required>
+                            <option value="">Choose a role...</option>
+                            <option value="CUSTOMER">Customer</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Create User</button>
+                        <a href="/users" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+            <div class="container d-flex justify-content-center" style="margin-top: 8%;">
+                <div class="card p-5 shadow rounded border border-light" style="width: 100%; max-width: 600px;">
+                    <div class="mt-3">
+
+                        <div th:if="${registrationConf}" class="alert alert-success" role="alert">
+                            <span th:text="${registrationConf}"></span>
+                        </div>
+
+                        <div th:if="${regError}" class="alert alert-danger" role="alert">
+                            <span th:text="${regError}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
