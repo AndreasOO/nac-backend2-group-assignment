@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO getOrderById(long id) {
-        return null;
+        return orderDao.findById(id).map(orderMapper::toOrderDto).orElse(null);
     }
 
     @Override
