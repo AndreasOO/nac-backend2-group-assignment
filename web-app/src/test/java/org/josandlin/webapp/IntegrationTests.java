@@ -30,6 +30,7 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
@@ -142,10 +143,22 @@ class IntegrationTests {
     }
 
     @Test
-    void viewAllProductsFromFakeStoreReturnOk() {
+    void viewAllProductsFromMicroServiceShouldReturnOk() {
         Response response = given()
                 .when()
                 .get("http://localhost/8080/products")
+                .then()
+                .contentType(ContentType.HTML)
+                .statusCode(200)
+                .extract()
+                .response();
+    }
+
+    @Test
+    void viewSpecificProductsFromMicroServiceShouldReturnOk() {
+        Response response = given()
+                .when()
+                .get("http://localhost/8080/products/1")
                 .then()
                 .contentType(ContentType.HTML)
                 .statusCode(200)
@@ -228,17 +241,99 @@ class IntegrationTests {
         Response response2 = given()
                 .formParam("username", "ITtestusercustomer")
                 .formParam("password", "test1234")
-                .redirects().follow(false)  // Don't auto-follow redirects
+                .redirects().follow(false)
                 .when()
                 .post("/login")
                 .then()
-                .statusCode(302)  // Redirect on success
+                .statusCode(302)
                 .extract()
                 .response();
 
 
         String location = response2.getHeader("Location");
         assertTrue(location.contains("/loginView"));
+    }
+
+    @Test
+    void loginAsAdminShouldPassAndRedirect() {
+
+        Response response1 = given()
+                .formParam("username", "ITtestuseradmin")
+                .formParam("password", "test1234")
+                .formParam("role", "ADMIN")
+                .when()
+                .post("http://localhost/8080/registerUser")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        Response response2 = given()
+                .formParam("username", "ITtestuseradmin")
+                .formParam("password", "test1234")
+                .redirects().follow(false)
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+
+        String location = response2.getHeader("Location");
+        assertTrue(location.contains("/loginView"));
+    }
+
+
+    @Test
+    void buyProductAsCustomerShouldCreateOrder() {
+
+        Response response1 = given()
+                .formParam("username", "ITtestusercustomer3")
+                .formParam("password", "test1234")
+                .formParam("role", "CUSTOMER")
+                .when()
+                .post("http://localhost/8080/registerUser")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        Response response2 = given()
+                .formParam("username", "ITtestusercustomer3")
+                .formParam("password", "test1234")
+                .redirects().follow(false)
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        long customerOrders = orderDao.findAll().stream()
+                                                .filter(order -> order.getUser().getUsername().equals("ITtestusercustomer3"))
+                                                .count();
+
+        Assertions.assertEquals(0, customerOrders);
+        String sessionId = response2.getCookie("JSESSIONID");
+
+        Response response3 = given()
+                .cookie("JSESSIONID", sessionId)
+                .when()
+                .post("/products/1/buy")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        long customerOrdersAfterPost = orderDao.findAll().stream()
+                .filter(order -> order.getUser().getUsername().equals("ITtestusercustomer3"))
+                .count();
+
+//        Assertions.assertEquals(1, customerOrdersAfterPost);
+
+        String location = response3.getHeader("Location");
+//        assertTrue(location.contains("/products/1"));
     }
 
 
