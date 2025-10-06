@@ -5,21 +5,17 @@ import io.restassured.RestAssured;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import jakarta.persistence.Column;
-import org.josandlin.library.dto.OrderCreateDTO;
+import org.josandlin.library.dto.UserCreateDTO;
 import org.josandlin.library.entity.product.Product;
-import org.josandlin.library.entity.product.Rating;
-import org.josandlin.library.entity.user.User;
 import org.josandlin.library.fetcher.Fetcher;
 import org.josandlin.webapp.dao.OrderDao;
 import org.josandlin.webapp.dao.ProductDao;
-import org.josandlin.webapp.dao.RoleDao;
-import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.library.dto.ProductDTO;
 import org.josandlin.library.dto.RatingDTO;
-import org.josandlin.library.dto.OrderDTO;
+import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.webapp.service.OrderService;
 import org.josandlin.webapp.service.ProductService;
+import org.josandlin.webapp.service.UserService;
 import org.josandlin.webapp.utils.ResultMessage;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +33,15 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class IntegrationTests {
+class WebAppIT {
 
     @LocalServerPort
     private Integer port;
@@ -88,6 +84,7 @@ class IntegrationTests {
             .withInitScript("db/init.sql");
     @Autowired
     private OrderService orderService;
+    @Autowired
     private UserDao userDao;
 
 
@@ -139,6 +136,9 @@ class IntegrationTests {
     ProductService productService;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     Fetcher productFetcher;
 
     @Value("${product.fetcher.url}")
@@ -149,6 +149,25 @@ class IntegrationTests {
     void setUp() {
         RestAssured.baseURI = "http://localhost:" + port;
         orderDao.deleteAll();
+    }
+
+    @Test
+    void createUserTest(){
+
+        int userCountBefore = userService.getAllUsers().size();
+
+        ResultMessage resultMessage;
+
+        resultMessage = userService.createUser(
+                new UserCreateDTO("Anna Karenina", "iHeartVronskij", "CUSTOMER"));
+
+        assertEquals(true, resultMessage.isSuccess());
+        assertFalse(resultMessage.getMessage().isEmpty());
+
+        int userCountAfter = userService.getAllUsers().size();
+
+        assertTrue(userCountBefore < userCountAfter);
+        assertNotEquals(userCountAfter, userCountBefore);
     }
 
     @Test
@@ -601,4 +620,8 @@ class IntegrationTests {
         }
 
     }
+
+
+
+
 }
