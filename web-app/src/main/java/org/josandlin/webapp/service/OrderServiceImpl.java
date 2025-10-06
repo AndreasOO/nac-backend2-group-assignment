@@ -12,6 +12,7 @@ import org.josandlin.library.mapper.order.OrderMapper;
 import org.josandlin.webapp.utils.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public OrderDTO getOrderById(long id) {
         return orderDao.findById(id).map(orderMapper::toOrderDto).orElse(null);
