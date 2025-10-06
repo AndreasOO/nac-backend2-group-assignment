@@ -10,7 +10,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "issue-79" ]
+    branches: [ "master" ]
 
 jobs:
   integration-tests-product-fetcher:
@@ -49,8 +49,7 @@ jobs:
         run: mvn clean install -DskipTests
 
       - name: Run integration tests in product-fetcher module
-#        TODO: Change test name after issue-81 is merged
-        run: mvn test -pl web-app -am -Dtest=IntegrationTests -Dsurefire.failIfNoSpecifiedTests=false
+        run: mvn test -pl web-app -am -Dtest=WebAppIT -Dsurefire.failIfNoSpecifiedTests=false
 
   build-and-push:
     needs: integration-tests-web-app

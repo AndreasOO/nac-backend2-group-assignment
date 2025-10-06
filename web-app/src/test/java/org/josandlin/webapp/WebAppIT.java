@@ -117,6 +117,7 @@ class WebAppIT {
     @Autowired
     UserService userService;
 
+
     @Autowired
     Fetcher productFetcher;
 
