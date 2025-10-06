@@ -102,12 +102,22 @@ jobs:
       - name: Image digest
         run: echo "Images pushed successfully!"
 
-#  deploy-backend:
-#    needs: build-and-push
-#    runs-on: ubuntu-latest
-#    container: ghcr.io/railwayapp/cli:latest
-#    env:
-#      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-#    steps:
-#      - name: Redeploy backend through Railway CLI
-#        run: railway redeploy --service=${{ secrets.RAILWAY_SERVICE_ID }} --yes
+  deploy-fetcher:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    container: ghcr.io/railwayapp/cli:latest
+    env:
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    steps:
+      - name: Redeploy backend through Railway CLI
+        run: railway redeploy --service=${{ secrets.RAILWAY_SERVICE_ID_FETCHER }} --yes
+
+  deploy-webapp:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    container: ghcr.io/railwayapp/cli:latest
+    env:
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    steps:
+      - name: Redeploy backend through Railway CLI
+        run: railway redeploy --service=${{ secrets.RAILWAY_SERVICE_ID_WEBAPP }} --yes
