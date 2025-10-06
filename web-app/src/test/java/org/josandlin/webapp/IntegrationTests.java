@@ -5,7 +5,11 @@ import io.restassured.RestAssured;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import jakarta.persistence.Column;
+import org.josandlin.library.dto.OrderCreateDTO;
 import org.josandlin.library.entity.product.Product;
+import org.josandlin.library.entity.product.Rating;
+import org.josandlin.library.entity.user.User;
 import org.josandlin.library.fetcher.Fetcher;
 import org.josandlin.webapp.dao.OrderDao;
 import org.josandlin.webapp.dao.ProductDao;
@@ -13,8 +17,10 @@ import org.josandlin.webapp.dao.RoleDao;
 import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.library.dto.ProductDTO;
 import org.josandlin.library.dto.RatingDTO;
+import org.josandlin.library.dto.OrderDTO;
 import org.josandlin.webapp.service.OrderService;
 import org.josandlin.webapp.service.ProductService;
+import org.josandlin.webapp.utils.ResultMessage;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -82,6 +88,7 @@ class IntegrationTests {
             .withInitScript("db/init.sql");
     @Autowired
     private OrderService orderService;
+    private UserDao userDao;
 
 
     @DynamicPropertySource
@@ -594,8 +601,4 @@ class IntegrationTests {
         }
 
     }
-
-
-
-
 }
