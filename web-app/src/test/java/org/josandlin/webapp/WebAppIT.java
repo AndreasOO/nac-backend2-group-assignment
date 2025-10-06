@@ -9,8 +9,6 @@ import org.josandlin.library.entity.product.Product;
 import org.josandlin.library.fetcher.Fetcher;
 import org.josandlin.webapp.dao.OrderDao;
 import org.josandlin.webapp.dao.ProductDao;
-import org.josandlin.webapp.dao.RoleDao;
-import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.library.dto.ProductDTO;
 import org.josandlin.library.dto.RatingDTO;
 import org.josandlin.webapp.service.OrderService;
@@ -31,7 +29,6 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
@@ -39,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class IntegrationTests {
+class WebAppIT {
 
     @LocalServerPort
     private Integer port;
