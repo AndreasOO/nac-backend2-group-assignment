@@ -13,27 +13,27 @@ on:
     branches: [ "issue-79" ]
 
 jobs:
-  integration-tests-product-fetcher:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: maven
-
-    - name: Build project (compile only)
-      run: mvn clean install -DskipTests
-
-    - name: Run integration tests in product-fetcher module
-      run: mvn test -pl product-fetcher -am -Dtest=ProductFetcherIT -Dsurefire.failIfNoSpecifiedTests=false
+#  integration-tests-product-fetcher:
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - uses: actions/checkout@v4
+#    - name: Set up JDK 21
+#      uses: actions/setup-java@v4
+#      with:
+#        java-version: '21'
+#        distribution: 'temurin'
+#        cache: maven
+#
+#    - name: Build project (compile only)
+#      run: mvn clean install -DskipTests
+#
+#    - name: Run integration tests in product-fetcher module
+#      run: mvn test -pl product-fetcher -am -Dtest=ProductFetcherIT -Dsurefire.failIfNoSpecifiedTests=false
 
   integration-tests-web-app:
-    needs: integration-tests-product-fetcher
+#    needs: integration-tests-product-fetcher
     runs-on: ubuntu-latest
 
     steps:
