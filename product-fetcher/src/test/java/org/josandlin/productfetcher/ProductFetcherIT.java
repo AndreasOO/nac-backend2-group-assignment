@@ -3,6 +3,7 @@ package org.josandlin.productfetcher;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.josandlin.library.entity.product.Product;
 import org.josandlin.library.fetcher.Fetcher;
 import org.josandlin.productfetcher.service.ProductService;
 import org.josandlin.productfetcher.dao.ProductDao;
@@ -163,6 +164,37 @@ class ProductFetcherIT {
             productService.saveAll(productDTOs);
 
             assertFalse(productService.getProducts().isEmpty());
+
+
+        } catch (Exception e) {
+            assertFalse(e instanceof Exception);
+        }
+
+    }
+
+    @Test
+    void savedProductsAndDTOShouldHaveSameData() {
+
+        try {
+            List<ProductDTO> productDTOs = productFetcher.fetchProducts(targetUrl);
+            productService.saveAll(productDTOs);
+
+            Long productCount = productDTOs.stream()
+                                           .filter(dto -> {
+                                                                Product entity = productDao.findById(dto.getId()).orElseThrow();
+                                                                return entity.getId().equals(dto.getId()) &&
+                                                                       entity.getCategory().equals(dto.getCategory()) &&
+                                                                       entity.getDescription().equals(dto.getDescription()) &&
+                                                                       entity.getPrice() == dto.getPrice() &&
+                                                                       entity.getTitle().equals(dto.getTitle()) &&
+                                                                       entity.getImage().equals(dto.getImage()) &&
+                                                                       entity.getRating().getCount() == dto.getRating().getCount() &&
+                                                                       entity.getRating().getRate() == dto.getRating().getRate();
+                                                                    })
+                                           .count();
+
+
+            assertEquals(productCount, productDTOs.size());
 
         } catch (Exception e) {
             assertFalse(e instanceof Exception);
