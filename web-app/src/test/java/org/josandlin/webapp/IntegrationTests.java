@@ -142,7 +142,6 @@ class IntegrationTests {
     void setUp() {
         RestAssured.baseURI = "http://localhost:" + port;
         orderDao.deleteAll();
-//        productDao.deleteAll();
     }
 
     @Test
@@ -157,20 +156,6 @@ class IntegrationTests {
                 .response();
     }
 
-//    @Test
-//    void navigateToRootShouldLeadToProductsView() {
-//        Response response = given()
-//                .when()
-//                .get("/")
-//                .then()
-//                .contentType(ContentType.HTML)
-//                .statusCode(302)
-//                .extract()
-//                .response();
-//
-//        String location = response.getHeader("Location");
-//        assertTrue(location.contains("/products"));
-//    }
 
     @Test
     void viewSpecificProductsFromMicroServiceShouldReturnOk() {
