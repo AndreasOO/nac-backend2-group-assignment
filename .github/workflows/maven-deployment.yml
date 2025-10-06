@@ -27,7 +27,7 @@ jobs:
         cache: maven
 
     - name: Build project (compile only)
-      run: mvn clean compile -DskipTests
+      run: mvn clean install -DskipTests
 
     - name: Run integration tests in product-fetcher module
       run: mvn test -pl product-fetcher -Dtest=ProductFetcherIT
@@ -46,7 +46,7 @@ jobs:
           cache: maven
 
       - name: Build project (compile only)
-        run: mvn clean compile -DskipTests
+        run: mvn clean install -DskipTests
 
       - name: Run integration tests in product-fetcher module
 #        TODO: Change test name after issue-81 is merged
