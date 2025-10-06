@@ -1,39 +1,5 @@
 services:
 
-  db:
-    container_name: backend-2-db
-    build:
-      context: .
-      dockerfile: Dockerfile.db
-    ports:
-      - "7777:3306"
-    networks:
-      - backend-2
-    environment:
-      - MYSQL_ROOT_PASSWORD=test1234
-    healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ptest1234" ]
-      interval: 5s
-      timeout: 5s
-      retries: 100
-
-  pf-db:
-    container_name: product-fetcher-db
-    build:
-      context: .
-      dockerfile: Dockerfile.pfdb
-    ports:
-      - "7778:3306"
-    networks:
-      - backend-2
-    environment:
-      - MYSQL_ROOT_PASSWORD=test1234
-    healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ptest1234" ]
-      interval: 5s
-      timeout: 5s
-      retries: 100
-
   spring:
     container_name: backend-2-spring
     build:
@@ -44,18 +10,11 @@ services:
     networks:
       - backend-2
     environment:
-      - DB_PASSWORD=test1234
-      - DB_USERNAME=backend_app
-      - DB_PORT=3306
-      - DB_HOSTNAME=db
-      - DB_SCHEMA=backend_db
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:backend_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
       - PF_HOSTNAME=pf
       - PF_PORT=8080
-    depends_on:
-      db:
-        condition: service_healthy
-      pf:
-        condition: service_healthy
 
   pf:
     container_name: product-fetcher
@@ -67,14 +26,9 @@ services:
     networks:
       - backend-2
     environment:
-      - DB_PASSWORD=test1234
-      - DB_USERNAME=product_app
-      - DB_PORT=3306
-      - DB_HOSTNAME=pf-db
-      - DB_SCHEMA=product_db
-    depends_on:
-      pf-db:
-        condition: service_healthy
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:product_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
       interval: 2s
