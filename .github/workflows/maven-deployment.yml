@@ -30,7 +30,7 @@ jobs:
       run: mvn clean install -DskipTests
 
     - name: Run integration tests in product-fetcher module
-      run: mvn test -pl product-fetcher -Dtest=ProductFetcherIT
+      run: mvn test -pl product-fetcher -am -Dtest=ProductFetcherIT
 
   integration-tests-web-app:
     needs: integration-tests-product-fetcher
@@ -50,7 +50,7 @@ jobs:
 
       - name: Run integration tests in product-fetcher module
 #        TODO: Change test name after issue-81 is merged
-        run: mvn test -pl web-app -Dtest=IntegrationTests
+        run: mvn test -pl web-app -am -Dtest=IntegrationTests
 
   build-and-push:
     needs: integration-tests-web-app
