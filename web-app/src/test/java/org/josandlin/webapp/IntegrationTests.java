@@ -13,6 +13,7 @@ import org.josandlin.webapp.dao.RoleDao;
 import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.library.dto.ProductDTO;
 import org.josandlin.library.dto.RatingDTO;
+import org.josandlin.webapp.service.OrderService;
 import org.josandlin.webapp.service.ProductService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,8 @@ class IntegrationTests {
             .withUsername("backend_app")
             .withPassword("test1234")
             .withInitScript("db/init.sql");
+    @Autowired
+    private OrderService orderService;
 
 
     @DynamicPropertySource
@@ -146,7 +149,7 @@ class IntegrationTests {
     void viewAllProductsFromMicroServiceShouldReturnOk() {
         Response response = given()
                 .when()
-                .get("http://localhost/8080/products")
+                .get("/products")
                 .then()
                 .contentType(ContentType.HTML)
                 .statusCode(200)
@@ -154,11 +157,26 @@ class IntegrationTests {
                 .response();
     }
 
+//    @Test
+//    void navigateToRootShouldLeadToProductsView() {
+//        Response response = given()
+//                .when()
+//                .get("/")
+//                .then()
+//                .contentType(ContentType.HTML)
+//                .statusCode(302)
+//                .extract()
+//                .response();
+//
+//        String location = response.getHeader("Location");
+//        assertTrue(location.contains("/products"));
+//    }
+
     @Test
     void viewSpecificProductsFromMicroServiceShouldReturnOk() {
         Response response = given()
                 .when()
-                .get("http://localhost/8080/products/1")
+                .get("/products/1")
                 .then()
                 .contentType(ContentType.HTML)
                 .statusCode(200)
@@ -170,7 +188,7 @@ class IntegrationTests {
     void viewRegisterShouldReturnOk() {
         Response response = given()
                 .when()
-                .get("http://localhost/8080/register")
+                .get("/register")
                 .then()
                 .contentType(ContentType.HTML)
                 .statusCode(200)
@@ -182,7 +200,7 @@ class IntegrationTests {
     void viewLoginShouldReturnOk() {
         Response response = given()
                 .when()
-                .get("http://localhost/8080/login")
+                .get("/loginView")
                 .then()
                 .contentType(ContentType.HTML)
                 .statusCode(200)
@@ -197,7 +215,7 @@ class IntegrationTests {
                 .formParam("password", "test1234")
                 .formParam("role", "ADMIN")
                 .when()
-                .post("http://localhost/8080/registerUser")
+                .post("/registerUser")
                 .then()
                 .statusCode(302)
                 .extract()
@@ -214,7 +232,7 @@ class IntegrationTests {
                 .formParam("password", "test1234")
                 .formParam("role", "CUSTOMER")
                 .when()
-                .post("http://localhost/8080/registerUser")
+                .post("/registerUser")
                 .then()
                 .statusCode(302)
                 .extract()
@@ -232,7 +250,7 @@ class IntegrationTests {
                 .formParam("password", "test1234")
                 .formParam("role", "CUSTOMER")
                 .when()
-                .post("http://localhost/8080/registerUser")
+                .post("/registerUser")
                 .then()
                 .statusCode(302)
                 .extract()
@@ -262,7 +280,7 @@ class IntegrationTests {
                 .formParam("password", "test1234")
                 .formParam("role", "ADMIN")
                 .when()
-                .post("http://localhost/8080/registerUser")
+                .post("/registerUser")
                 .then()
                 .statusCode(302)
                 .extract()
@@ -286,6 +304,47 @@ class IntegrationTests {
 
 
     @Test
+    void viewOrdersAsAdminShouldShowOrdersView() {
+
+        Response response1 = given()
+                .formParam("username", "ITtestuseradmin15")
+                .formParam("password", "test1234")
+                .formParam("role", "ADMIN")
+                .when()
+                .post("/registerUser")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        Response response2 = given()
+                .formParam("username", "ITtestuseradmin15")
+                .formParam("password", "test1234")
+                .redirects().follow(false)
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        String sessionId = response2.getCookie("JSESSIONID");
+
+        Response response3 = given()
+                .cookie("JSESSIONID", sessionId)
+                .when()
+                .get("/orders")
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        assertTrue(response3.getBody().prettyPrint().contains("Order Management - Admin Panel"));
+    }
+
+
+
+    @Test
     void buyProductAsCustomerShouldCreateOrder() {
 
         Response response1 = given()
@@ -293,7 +352,7 @@ class IntegrationTests {
                 .formParam("password", "test1234")
                 .formParam("role", "CUSTOMER")
                 .when()
-                .post("http://localhost/8080/registerUser")
+                .post("/registerUser")
                 .then()
                 .statusCode(302)
                 .extract()
@@ -330,13 +389,113 @@ class IntegrationTests {
                 .filter(order -> order.getUser().getUsername().equals("ITtestusercustomer3"))
                 .count();
 
-//        Assertions.assertEquals(1, customerOrdersAfterPost);
+
+        Assertions.assertEquals(1, customerOrdersAfterPost);
 
         String location = response3.getHeader("Location");
-//        assertTrue(location.contains("/products/1"));
+        assertTrue(location.contains("/products/1"));
     }
 
 
+
+    @Test
+    void removeOrderShouldRemoveOrderFromDatabase() {
+
+        Response response1 = given()
+                .formParam("username", "ITtestusercustomer5")
+                .formParam("password", "test1234")
+                .formParam("role", "CUSTOMER")
+                .when()
+                .post("/registerUser")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        Response response2 = given()
+                .formParam("username", "ITtestusercustomer5")
+                .formParam("password", "test1234")
+                .redirects().follow(false)
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        long customerOrders = orderDao.findAll().stream()
+                .filter(order -> order.getUser().getUsername().equals("ITtestusercustomer5"))
+                .count();
+
+        Assertions.assertEquals(0, customerOrders);
+
+        String sessionIdForCustomer = response2.getCookie("JSESSIONID");
+
+        Response response3 = given()
+                .cookie("JSESSIONID", sessionIdForCustomer)
+                .when()
+                .post("/products/1/buy")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        long customerOrdersAfterPost = orderDao.findAll().stream()
+                .filter(order -> order.getUser().getUsername().equals("ITtestusercustomer5"))
+                .count();
+
+        Assertions.assertEquals(1, customerOrdersAfterPost);
+
+
+
+        Long savedOrderId = orderDao.findAll().stream()
+                .filter(order -> order.getUser().getUsername().equals("ITtestusercustomer5"))
+                .findFirst().orElseThrow().getId();
+
+                Response response4 = given()
+                .formParam("username", "ITtestuseradmin4")
+                .formParam("password", "test1234")
+                .formParam("role", "ADMIN")
+                .when()
+                .post("/registerUser")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        Response response5 = given()
+                .formParam("username", "ITtestuseradmin4")
+                .formParam("password", "test1234")
+                .redirects().follow(false)
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        String sessionId = response5.getCookie("JSESSIONID");
+
+
+        Response response6 = given()
+                .cookie("JSESSIONID", sessionId)
+                .when()
+                .post("/orders/"+savedOrderId+"/delete")
+                .then()
+                .statusCode(302)
+                .extract()
+                .response();
+
+        String location = response6.getHeader("Location");
+        assertTrue(location.contains("/orders"));
+
+        long customerOrdersAfterDelete = orderDao.findAll().stream()
+                .filter(order -> order.getUser().getUsername().equals("ITtestusercustomer5"))
+                .count();
+
+        Assertions.assertEquals(0, customerOrdersAfterDelete);
+
+    }
 
 
 
