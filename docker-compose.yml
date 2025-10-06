@@ -49,8 +49,7 @@ services:
       - DB_PORT=3306
       - DB_HOSTNAME=db
       - DB_SCHEMA=backend_db
-      - PF_HOSTNAME=pf
-      - PF_PORT=8080
+      - PF_URL=http://pf:8080
     depends_on:
       db:
         condition: service_healthy
