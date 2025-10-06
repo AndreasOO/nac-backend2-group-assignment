@@ -102,7 +102,7 @@ class ProductFetcherIT {
     void getAllProductsFromFakeStoreShouldReturnCorrectJsonProperties() {
         Response response = given()
                 .when()
-                .get("https://fakestoreapi.com/products")
+                .get(targetUrl)
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
