@@ -6,13 +6,15 @@ import io.restassured.RestAssured;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.josandlin.library.dto.UserCreateDTO;
+import org.josandlin.library.dto.*;
 import org.josandlin.library.entity.product.Product;
+import org.josandlin.library.entity.product.Rating;
+import org.josandlin.library.entity.user.User;
+import org.josandlin.library.entity.order.Order;
 import org.josandlin.library.fetcher.Fetcher;
+import org.josandlin.library.mapper.order.OrderMapper;
 import org.josandlin.webapp.dao.OrderDao;
 import org.josandlin.webapp.dao.ProductDao;
-import org.josandlin.library.dto.ProductDTO;
-import org.josandlin.library.dto.RatingDTO;
 import org.josandlin.webapp.dao.UserDao;
 import org.josandlin.webapp.service.OrderService;
 import org.josandlin.webapp.service.ProductService;
@@ -34,6 +36,7 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
@@ -61,9 +64,7 @@ class WebAppIT {
             .withPassword("test1234")
             .withInitScript("db/init.sql");
     @Autowired
-    private OrderService orderService;
-    @Autowired
-    private UserDao userDao;
+    private OrderMapper orderMapper;
 
 
     @DynamicPropertySource
@@ -120,6 +121,12 @@ class WebAppIT {
 
     @Autowired
     Fetcher productFetcher;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private UserDao userDao;
 
     @Value("${product.fetcher.url}")
     private String targetUrl;
@@ -601,6 +608,31 @@ class WebAppIT {
 
     }
 
+    @Test
+    void getOrderByIdServiceShouldReturnCorrectData(){
+        productDao.save(new Product( 1L, "title1", 100, "desc1", "catg1", "img1", new Rating(1,1)));
+        Product savedProduct = productDao.findAll().getFirst();
+
+        userDao.save(new User("test", "pw"));
+        User savedUser = userDao.findAll().getFirst();
+
+        orderDao.save(new Order(savedUser, List.of(savedProduct)));
+        Order savedOrder = orderDao.findAll().getFirst();
+
+        OrderDTO expectedDTO = new OrderDTO(savedOrder.getId(),
+                new UserSummaryDTO(savedUser.getId(), savedUser.getUsername()),
+                List.of(new ProductSummaryDTO(savedProduct.getId(), savedProduct.getTitle(), savedProduct.getPrice())));
+
+        OrderDTO actual = orderService.getOrderById(savedOrder.getId());
+
+        Assertions.assertEquals(expectedDTO.getId(), actual.getId());
+
+        Assertions.assertEquals(expectedDTO.getUser().getId(), actual.getUser().getId());
+        Assertions.assertEquals(expectedDTO.getUser().getUsername(), actual.getUser().getUsername());
+
+        Assertions.assertEquals(expectedDTO.getProducts().getFirst().getId(), actual.getProducts().getFirst().getId());
+        Assertions.assertEquals(expectedDTO.getProducts().getFirst().getTitle(), actual.getProducts().getFirst().getTitle());
+    }
 
     private static String getMockProductsJson() {
         return """
@@ -848,8 +880,5 @@ class WebAppIT {
                 ]
                 """;
     }
-
-
-
 
 }
